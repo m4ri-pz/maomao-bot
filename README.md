@@ -17,31 +17,6 @@ O Architect poderá:
 
 A primeira identidade padrão é **A.U.R.A., a Arquiteta do Servidor**: clara, prestativa e técnica, sem fingir que uma ação foi aplicada quando ainda está apenas planejada.
 
-## Desenvolvimento pelo Samsung A13 com Termux
-
-No Termux:
-
-```bash
-pkg update && pkg upgrade -y
-pkg install git nodejs-lts openssh -y
-git clone https://github.com/SEU_USUARIO/discord-architect.git
-cd discord-architect
-npm install
-cp .env.example .env
-nano .env
-npm run check
-npm start
-```
-
-Para editar: `nano src/features/setup/panel.js` ou use um editor Android que abra a pasta do Termux. Para sincronizar:
-
-```bash
-git status
-git add .
-git commit -m "feat: descreva sua mudança"
-git push
-```
-
 Nunca faça commit do `.env` e nunca cole o token do Discord em mensagens, issues ou código.
 
 ## Configuração do Discord
