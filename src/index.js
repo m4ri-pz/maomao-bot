@@ -5,6 +5,7 @@ import { handleInteraction } from './interactions/router.js';
 import { logger } from './core/logger.js';
 import { assertRuntimeEnv } from './config/env.js';
 import { runAutoSetup } from './modules/provisioning/auto-setup.js';
+import { auditChannel, auditMemberAdd, auditMemberRemove, auditRole, welcomeMember } from './services/automations.js';
 
 assertRuntimeEnv();
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
@@ -22,4 +23,10 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 client.on(Events.Error, (error) => logger.error({ error: error.message }, 'O mensageiro do Discord encontrou um obstáculo'));
+client.on(Events.GuildMemberAdd, (member) => { void welcomeMember(member, logger).catch((error) => logger.warn({ guildId: member.guild.id, error: error.message }, 'A recepção automática encontrou um obstáculo')); void auditMemberAdd(member).catch(() => {}); });
+client.on(Events.GuildMemberRemove, (member) => { void auditMemberRemove(member).catch(() => {}); });
+client.on(Events.ChannelCreate, (channel) => { void auditChannel(channel, 'criado').catch(() => {}); });
+client.on(Events.ChannelDelete, (channel) => { void auditChannel(channel, 'removido').catch(() => {}); });
+client.on(Events.RoleCreate, (role) => { void auditRole(role, 'criado').catch(() => {}); });
+client.on(Events.RoleDelete, (role) => { void auditRole(role, 'removido').catch(() => {}); });
 await client.login(process.env.DISCORD_TOKEN);

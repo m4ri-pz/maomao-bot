@@ -1,16 +1,16 @@
 # Memória operacional do Maomao Bot
 
-Este arquivo preserva as decisões e o contexto necessário para continuar o projeto em outra sessão. A fonte de verdade do comportamento é sempre o código atual.
+Este documento registra somente o contexto público e compatível com a instalação JSON local. A fonte de verdade do comportamento é o código atual.
 
 ## Projeto
 
-O Maomao Bot é um bot profissional de Discord com identidade inspirada em Maomao: curiosa, analítica, elegante e reservada. O tema visual e textual é o **Palácio das Ervas**. O bot organiza servidores, publica regras e instruções, oferece Tickets privados e conduz um RPG por painéis.
+O Maomao Bot é um bot profissional de Discord com identidade inspirada em Maomao: curiosa, analítica, elegante, reservada e com humor seco. O tema visual e textual é o **Palácio das Ervas**. O bot organiza servidores, publica regras e instruções, oferece Tickets privados e conduz um RPG por painéis.
 
-Repositório: https://github.com/m4ri-pz/maomao-bot
+Repositório público: https://github.com/m4ri-pz/maomao-bot
 
-## Stack e comandos
+## Stack e execução
 
-Node.js com ES Modules, discord.js v14, dotenv e JSON local. Use `npm install`, `npm run check`, `npm start` e `npm run register` conforme a necessidade. Nunca versionar `.env`, tokens, IDs privados ou dados pessoais.
+Node.js com ES Modules, discord.js v14, dotenv e JSON local. Use `npm install`, `npm run check`, `npm start` e `npm run register`. Nunca versionar `.env`, tokens, IDs privados ou dados pessoais. A pasta `data/` permanece local e é protegida pelo `.gitignore`.
 
 ## Módulos importantes
 
@@ -18,9 +18,10 @@ Node.js com ES Modules, discord.js v14, dotenv e JSON local. Use `npm install`, 
 - `src/core/starter-messages.js`: mensagens iniciais e painéis.
 - `src/modules/provisioning/auto-setup.js`: organização automática e revisão do template.
 - `src/services/maomao-structure.js`: reconciliação, permissões, limpeza e publicação.
+- `src/services/automations.js`: boas-vindas com avatar e audit log visual da equipe.
 - `src/services/tickets.js`: atendimento privado.
 - `src/interactions/router.js`: interações.
-- `src/store/`: configurações de guild e estado do RPG.
+- `src/store/`: configurações de guilda e estado do RPG em JSON local.
 
 ## Regras de manutenção
 
@@ -28,16 +29,16 @@ O template oficial é `maomao-palace`. A organização deve ser idempotente e co
 
 O RPG deve continuar modular e baseado em botões/menus: investigação, pistas, exames de veneno, ervas, laboratório, relações e progressão. Respostas privadas devem usar `flags: 64`.
 
-## Última correção registrada
+As automações `welcome` e `auditLog` são opcionais e começam desativadas. Quando ativadas no painel, `welcome` publica no canal `boas-vindas` e `auditLog` registra eventos em `registros-da-equipe`. Ambas respeitam a configuração JSON da guilda e verificam permissões antes de enviar.
 
-Na revisão 6, o bot passou a liberar o próprio cargo nas permissões de publicação, aplicar permissões antes de atualizar starters, conectar Tickets à categoria visual nova e forçar uma reaplicação do template existente. Commit: `496d4e3`.
+## Validação
 
-Na auditoria seguinte, foram corrigidos: roteamento que bloqueava jogadores comuns do RPG; painel `/rpg` público; comandos slash desconhecidos sem resposta; `logger.warn` ausente; persistência JSON sem serialização; normalização frágil de fichas; menus de configuração com IDs instáveis/sem validação; títulos de Tickets fora dos limites; acesso da equipe aos Tickets; corrida de criação de Ticket; fechamento sem autorização; validação de templates; consolidação automática de categorias/canais conhecidos e cargos duplicados. O provisionamento foi elevado para a revisão 7. A suíte passou a ter 12 testes, além de teste manual de concorrência dos stores.
+A suíte atual contém 12 testes. Antes de publicar mudanças, executar `npm run check` e `git diff --check`.
 
 ## Retomada rápida
 
 1. Conferir `git status` e os últimos commits.
 2. Ler este arquivo e os módulos citados.
-3. Confirmar variáveis `MAOMAO_AUTO_SETUP`, `MAOMAO_AUTO_SETUP_GUILD_ID` e `MAOMAO_SETUP_MODE` sem expor segredos.
+3. Confirmar as variáveis de ambiente sem exibir valores secretos.
 4. Rodar `npm run check`.
-5. Atualizar este arquivo e fazer commit quando uma decisão ou correção importante for concluída.
+5. Publicar somente versões estáveis no repositório público.
