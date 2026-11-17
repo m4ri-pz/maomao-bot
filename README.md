@@ -10,6 +10,10 @@
   <a href="https://discord.js.org/"><img src="https://img.shields.io/badge/discord.js-v14-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="discord.js v14"></a>
 </p>
 
+<p align="center">
+  <a href="https://discord.gg/HCsbqh4umN">🌸 Entrar no Discord oficial da Maomao</a>
+</p>
+
 ## ✦ A ideia
 
 Maomao não é um amontoado de comandos. Ela observa a estrutura do servidor, apresenta o que encontrou e oferece uma ação clara para cada etapa.
@@ -25,6 +29,14 @@ A experiência combina:
 > “Uma boa investigação começa quando alguém decide não ignorar os detalhes.”
 
 Os textos são autorais e a identidade visual usa referências gerais de ervas, laboratório, investigação e palácio. O projeto não utiliza falas ou artes oficiais da obra.
+
+## 🌷 Comunidade oficial
+
+O desenvolvimento, os testes do bot e as próximas ideias do RPG acontecem no servidor oficial:
+
+**[Entrar no Discord oficial da Maomao](https://discord.gg/HCsbqh4umN)**
+
+Lá você poderá acompanhar a evolução do Palácio das Ervas, testar os painéis interativos, conversar sobre novos casos e enviar sugestões para os próximos capítulos do RPG.
 
 ## ✧ O que já existe
 
