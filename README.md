@@ -148,17 +148,21 @@ A equipe também pode editar o nome da categoria e o título do painel pelo `/co
 | `/rpg` | Abre os Registros interativos do Palácio. |
 | `/status` | Mostra a saúde e a latência do bot. |
 
-## ◈ Instalação
+## 🌸 Instalação delicada
 
-### 1. Criar a aplicação
+Não precisa correr. A Maomao funciona melhor quando cada ingrediente é colocado no frasco certo. Siga as etapas abaixo com calma e mantenha seu token em segredo.
 
-1. Acesse o [Discord Developer Portal](https://discord.com/developers/applications).
+### 1. Preparar a aplicação no Discord
+
+1. Abra o [Discord Developer Portal](https://discord.com/developers/applications).
 2. Crie uma aplicação chamada **Maomao**.
-3. Crie o usuário bot e mantenha o token apenas no `.env`.
-4. Convide a aplicação com `bot` e `applications.commands`.
-5. Posicione o cargo da Maomao acima dos cargos que ela precisará organizar.
+3. Crie o usuário bot e copie o token somente para o `.env`.
+4. Convide a aplicação usando os escopos `bot` e `applications.commands`.
+5. Coloque o cargo da Maomao acima dos cargos que ela irá organizar.
 
-### 2. Preparar o projeto
+> 🩷 **Pequena verificação:** o bot precisa ter acesso aos canais e às permissões que você deseja que ele examine. Sem isso, até a melhor investigadora fica de mãos atadas.
+
+### 2. Buscar o projeto e preparar o caderno
 
 ```bash
 git clone https://github.com/m4ri-pz/maomao-bot.git
@@ -176,7 +180,9 @@ DISCORD_GUILD_ID=id_do_servidor_de_desenvolvimento
 DATA_DIR=./data
 ```
 
-### 3. Registrar e iniciar
+> 🌷 O `.env` é o caderno privado da Maomao. Não publique esse arquivo, não envie o token para ninguém e não o coloque no GitHub.
+
+### 3. Registrar os comandos e abrir as portas
 
 ```bash
 npm run check
@@ -184,11 +190,13 @@ npm run register
 npm start
 ```
 
-Durante o desenvolvimento, `DISCORD_GUILD_ID` registra os comandos rapidamente em um servidor de teste. Nunca envie `.env`, tokens, backups ou arquivos de dados para o GitHub.
+Durante o desenvolvimento, `DISCORD_GUILD_ID` faz os comandos aparecerem rapidamente em um servidor de ensaio. Quando tudo estiver bonito e funcionando, você pode remover esse valor para trabalhar com o registro global.
 
-## ◈ Configuração automática no Termux
+Se aparecer uma mensagem de erro, não apague arquivos às pressas: leia o registro, confira o `.env` e revise as permissões do bot. A Maomao prefere uma investigação curta a uma poção preparada no escuro.
 
-Para deixar a Maomao preparar o servidor ao iniciar, adicione:
+## 🏯 Preparação automática do Palácio
+
+Se quiser que a Maomao prepare o seu servidor ao iniciar, adicione estas linhas ao `.env`:
 
 ```env
 MAOMAO_AUTO_SETUP=true
@@ -206,9 +214,11 @@ A Maomao irá:
 6. registrar que a preparação terminou;
 7. evitar duplicações em reinicializações.
 
-Se uma permissão estiver faltando, a operação será bloqueada. Se algo falhar, o estado fica registrado para análise.
+Se uma permissão estiver faltando, a preparação será interrompida com segurança. Se algo falhar, o estado ficará registrado para análise — nada de esconder sintomas debaixo do tapete.
 
-### Usar no Android
+### 🪻 Usar no Android com Termux
+
+No Android, o Termux funciona como o pequeno laboratório onde você edita, testa e inicia a Maomao. Cole os comandos abaixo um por vez:
 
 ```bash
 pkg update && pkg upgrade -y
@@ -223,11 +233,13 @@ npm run register
 npm start
 ```
 
-Para interromper o processo:
+Quando quiser encerrar a Maomao por enquanto, use:
 
 ```text
 Ctrl + C
 ```
+
+> 💗 **Dica:** para manter o bot ativo por longos períodos, use uma hospedagem apropriada. O Termux é ótimo para cuidar do projeto e fazer testes, mas o sistema Android pode suspender processos em segundo plano.
 
 ## ◈ Arquitetura do projeto
 
