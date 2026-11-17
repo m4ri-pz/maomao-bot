@@ -1,4 +1,4 @@
-# Maomao · Discord Architect
+# Maomao Bot
 
 > **Observar. Separar. Organizar. Aplicar somente quando tudo estiver conferido.**
 >
@@ -6,7 +6,7 @@
 
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-5FA04E?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.js.org/)
-[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-C39B5B?style=flat-square)](https://github.com/m4ri-pz/discord-architect)
+[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-C39B5B?style=flat-square)](https://github.com/m4ri-pz/maomao-bot)
 
 ## A proposta
 
@@ -65,7 +65,7 @@ O projeto não aceita mais templates externos ou templates arbitrários criados 
 | `/configuracao` | Abre o painel geral do servidor. |
 | `/painel-tickets` | Publica a central de atendimento. |
 | `/rpg` | Abre o painel social de RPG. |
-| `/admin` | Acessa ferramentas administrativas seguras. |
+| `/painel-admin` | Acessa ferramentas administrativas seguras. |
 | `/status` | Verifica o estado do bot. |
 
 ## Instalação
@@ -81,8 +81,8 @@ O projeto não aceita mais templates externos ou templates arbitrários criados 
 ### 2. Instalar e configurar
 
 ```bash
-git clone https://github.com/m4ri-pz/discord-architect.git
-cd discord-architect
+git clone https://github.com/m4ri-pz/maomao-bot.git
+cd maomao-bot
 npm install
 cp .env.example .env
 ```
@@ -112,8 +112,8 @@ O Termux pode ser usado para editar, testar e sincronizar o projeto. Ele é adeq
 ```bash
 pkg update && pkg upgrade -y
 pkg install git nodejs-lts openssh nano -y
-git clone https://github.com/m4ri-pz/discord-architect.git
-cd discord-architect
+git clone https://github.com/m4ri-pz/maomao-bot.git
+cd maomao-bot
 npm install
 cp .env.example .env
 nano .env

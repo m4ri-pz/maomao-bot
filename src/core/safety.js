@@ -1,7 +1,7 @@
 import { PermissionFlagsBits } from 'discord.js';
 
 export const MANAGE_GUILD_PERMISSIONS = [PermissionFlagsBits.ManageGuild, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.ManageChannels];
-export function canArchitect(member) {
+export function canManageServer(member) {
   return member.permissions.has(PermissionFlagsBits.Administrator) || member.permissions.has(PermissionFlagsBits.ManageGuild);
 }
 export function summarizePlan(plan) {

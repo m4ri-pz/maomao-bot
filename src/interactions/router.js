@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 import { getBlueprint, listBlueprints } from '../core/blueprints.js';
-import { applyTemplate, previewTemplate } from '../services/architect.js';
-import { canArchitect, summarizePlan } from '../core/safety.js';
+import { applyTemplate, previewTemplate } from '../services/maomao-structure.js';
+import { canManageServer, summarizePlan } from '../core/safety.js';
 import { getGuildConfig, updateGuildConfig } from '../store/guild-store.js';
 import { createTicket, closeTicket } from '../services/tickets.js';
 import { act } from '../services/rpg.js';
@@ -10,7 +10,7 @@ import { characterProfile } from '../personality/character-profile.js';
 import { personality } from '../personality/messages.js';
 
 function button(id, label, style = ButtonStyle.Secondary) { return new ButtonBuilder().setCustomId(id).setLabel(label).setStyle(style); }
-function templateMenu() { return new ActionRowBuilder().addComponents(new StringSelectMenuBuilder().setCustomId('template:select').setPlaceholder('Escolha um template').addOptions(listBlueprints().map((id) => { const b = getBlueprint(id); return { label: b.name, description: b.description.slice(0, 100), value: id }; }))); }
+function templateMenu() { return new ActionRowBuilder().addComponents(new StringSelectMenuBuilder().setCustomId('template:select').setPlaceholder('Escolha a base oficial').addOptions(listBlueprints().map((id) => { const b = getBlueprint(id); return { label: b.name, description: b.description.slice(0, 100), value: id }; }))); }
 function backButton() { return new ActionRowBuilder().addComponents(button('panel:home', 'Voltar ao painel')); }
 function modalInput(id, label, value, style = TextInputStyle.Short) { return new TextInputBuilder().setCustomId(id).setLabel(label).setStyle(style).setValue(value || '').setRequired(true); }
 
@@ -21,10 +21,11 @@ export async function handleInteraction(interaction, logger) {
   if (interaction.customId === 'ticket:close') return closeTicket(interaction);
   if (['rpg:explore', 'rpg:rest', 'rpg:inventory', 'rpg:quest'].includes(interaction.customId) || interaction.customId.startsWith('rpg:class:')) { const action = interaction.customId.replace('rpg:', ''); const player = await act(interaction.guildId, interaction.user.id, action); return interaction.update({ embeds: [rpgCard(player, interaction.user.username)], components: rpgButtons(player) }); }
 
-  if (!interaction.guild || !canArchitect(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', ephemeral: true });
+  if (!interaction.guild || !canManageServer(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', ephemeral: true });
 
   if (interaction.customId === 'panel:home') { const config = await getGuildConfig(interaction.guildId); return interaction.update({ content: `${characterProfile.name} está pronta. Template atual: **${config.template}**`, embeds: [], components: [templateMenu()] }); }
-  if (interaction.customId === 'panel:template') return interaction.update({ content: `${personality.preview} Escolha um template:`, embeds: [], components: [templateMenu(), backButton()] });
+  if (interaction.customId === 'panel:cancel') return interaction.update({ content: 'Operação cancelada. Nenhuma alteração foi aplicada.', embeds: [], components: [] });
+  if (interaction.customId === 'panel:template') return interaction.update({ content: `${personality.preview} Esta é a base oficial da Maomao:`, embeds: [], components: [templateMenu(), backButton()] });
   if (interaction.customId === 'template:select') {
     const id = interaction.values[0]; const { blueprint, plan } = previewTemplate(id);
     const embed = new EmbedBuilder().setColor(characterProfile.colors.success).setTitle(`Simulação · ${blueprint.name}`).setDescription(`${blueprint.description}\n\n${personality.noDestructiveActions}`).addFields({ name: 'Plano', value: summarizePlan(plan) }, { name: 'Cargos', value: plan.roles.map((r) => `• ${r.name}`).join('\n').slice(0, 1024) }, { name: 'Canais', value: plan.channels.map((c) => `• ${c.category} / ${c.name}`).join('\n').slice(0, 1024) });

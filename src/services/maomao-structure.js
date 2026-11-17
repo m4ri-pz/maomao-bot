@@ -1,4 +1,4 @@
-import { ChannelType, PermissionsBitField, PermissionFlagsBits } from 'discord.js';
+import { ChannelType, PermissionsBitField } from 'discord.js';
 import { buildPlan, getBlueprint } from '../core/blueprints.js';
 import { permissionBits } from '../core/safety.js';
 
@@ -6,7 +6,7 @@ export function previewTemplate(templateId) { const blueprint = getBlueprint(tem
 
 async function setRoleOrder(guild, roles, roleMap, logger) {
   const positions = roles.map((role, index) => ({ role: roleMap.get(role.name), position: roles.length - index })).filter((entry) => entry.role && entry.role.id !== guild.roles.everyone.id);
-  try { if (positions.length) await guild.roles.setPositions(positions, { reason: 'Discord Architect: organizar hierarquia do template' }); }
+  try { if (positions.length) await guild.roles.setPositions(positions, { reason: 'Maomao: organizar hierarquia da base oficial' }); }
   catch (error) { logger.info({ guildId: guild.id, error: error.message }, 'Hierarquia preservada porque o cargo do bot não permite mover todos os cargos'); }
 }
 
