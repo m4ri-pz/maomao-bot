@@ -2,7 +2,7 @@
   "name": "discord-architect",
   "version": "0.1.0",
   "private": true,
-  "description": "Bot Discord modular para projetar, configurar e automatizar servidores com segurança.",
+  "description": "Bot Discord modular com personalidade Maomao, template oficial, painéis, Tickets, RPG e permissões organizadas.",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",

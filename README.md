@@ -1,55 +1,101 @@
-# Discord Architect
+# Maomao · Discord Architect
 
-Bot Discord modular para planejar e organizar servidores usando painéis interativos. O bot tem como princípio: **simular antes de aplicar**.
+> **Observar. Separar. Organizar. Aplicar somente quando tudo estiver conferido.**
+>
+> Um bot Discord modular com a personalidade da Maomao e uma base oficial inspirada em investigação, ervas, laboratório e organização do palácio.
 
-## Visão
+[![Node.js](https://img.shields.io/badge/Node.js-20%2B-5FA04E?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.js.org/)
+[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-C39B5B?style=flat-square)](https://github.com/m4ri-pz/discord-architect)
 
-O Architect poderá:
+## A proposta
 
-- montar uma arquitetura de cargos e canais a partir de templates;
-- mostrar um plano de mudanças antes de executá-lo;
-- criar cargos e canais com permissões explícitas;
-- abrir painéis de configuração por botões, menus e modais;
-- guardar preferências por servidor;
-- configurar personalidade e tom do personagem;
-- executar automações com permissões mínimas e logs;
-- evoluir para plugins de tickets, onboarding, formulários e backups de configuração.
+Maomao não é apenas um bot de comandos. Ela funciona como uma administradora visual do servidor: analisa a estrutura, apresenta um plano e pede confirmação antes de aplicar mudanças importantes.
 
-A identidade padrão é **Maomao**: curiosa, direta e analítica, com estética de ervas, investigação e organização do palácio. Os textos do projeto são autorais; não incluímos falas ou artes copiadas da obra.
+A personalidade padrão é curiosa, direta, analítica, reservada e levemente sarcástica. Os textos do projeto são autorais e a estética usa referências gerais de ervas, investigação, laboratório e palácio, sem copiar falas ou artes da obra.
 
-## Desenvolvimento no Android com Termux
+> “Se a estrutura está desorganizada, primeiro encontramos a causa. Depois mexemos no que precisa ser mexido.”
 
-O Termux permite clonar, editar, testar e executar o projeto diretamente em um ambiente Linux no Android. Esta seção é voltada ao desenvolvimento e não substitui uma hospedagem permanente para manter o bot online 24 horas.
+## O que já existe
 
-### 1. Preparar o ambiente
+| Área | Função |
+| --- | --- |
+| **Template oficial** | `/template-oficial` prepara a estrutura-base do servidor Maomao. |
+| **Painel visual** | `/configuracao` concentra a configuração em botões, menus e modais. |
+| **Arquitetura** | Criação segura de cargos, hierarquia, categorias, canais e permissões. |
+| **Tickets** | Central configurável, canais privados, abertura e fechamento por botão. |
+| **Automações** | Ativação individual de recursos como boas-vindas e logs. |
+| **RPG** | Classes, exploração, experiência, níveis, missões, ouro e inventário. |
+| **Personalidade** | Nome e tom de voz ajustáveis por servidor. |
 
-Instale o Termux por uma fonte confiável e, dentro dele, execute:
+## Template oficial · Palácio das Ervas
 
-```bash
-pkg update && pkg upgrade -y
-pkg install git nodejs-lts openssh nano -y
+Para quem não quer montar tudo do zero, o bot oferece uma única base oficial. Ela foi pensada para uma comunidade temática de investigação, botânica e mistérios do palácio.
+
+Use:
+
+```text
+/template-oficial
 ```
 
-### 2. Baixar o projeto
+Antes de aplicar, Maomao mostra uma prévia. Depois da confirmação, ela configura:
+
+- cargos de Regente, Curandeiro-chefe, Investigador, Apoiador, Visitante e Bot;
+- permissões e hierarquia planejada;
+- Portão do Palácio;
+- Casa das Ervas;
+- Investigações;
+- Pátio da Comunidade;
+- Atendimento;
+- Área Restrita da equipe;
+- canais de texto e voz;
+- regras, boas-vindas e anúncios em modo leitura.
+
+O modo oficial **não apaga canais ou cargos existentes**. Ele cria o que estiver faltando e configura os itens pertencentes à base oficial. Depois disso, o administrador pode personalizar o servidor sem trocar a identidade estrutural do bot.
+
+### O que foi removido
+
+O projeto não aceita mais templates externos ou templates arbitrários criados por qualquer usuário. O comando antigo `/importar-template` foi removido de propósito. A base única mantém cargos, permissões, estética e experiência consistentes em todos os servidores.
+
+## Comandos principais
+
+| Comando | Uso |
+| --- | --- |
+| `/template-oficial` | Visualiza e aplica o template-base Maomao. |
+| `/configuracao` | Abre o painel geral do servidor. |
+| `/painel-tickets` | Publica a central de atendimento. |
+| `/rpg` | Abre o painel social de RPG. |
+| `/admin` | Acessa ferramentas administrativas seguras. |
+| `/status` | Verifica o estado do bot. |
+
+## Instalação
+
+### 1. Criar a aplicação no Discord
+
+1. Abra o [Discord Developer Portal](https://discord.com/developers/applications).
+2. Crie uma aplicação com o nome **Maomao**.
+3. Crie o usuário bot e copie o token somente para o arquivo `.env`.
+4. Convide o bot com os escopos `bot` e `applications.commands`.
+5. Dê apenas as permissões necessárias. O cargo do bot precisa ficar acima dos cargos que ele gerenciará.
+
+### 2. Instalar e configurar
 
 ```bash
 git clone https://github.com/m4ri-pz/discord-architect.git
 cd discord-architect
 npm install
-```
-
-### 3. Configurar o bot
-
-Crie o arquivo local de ambiente e abra-o no editor:
-
-```bash
 cp .env.example .env
-nano .env
 ```
 
-Preencha `DISCORD_TOKEN` e `DISCORD_CLIENT_ID`. Durante o desenvolvimento, também é útil informar `DISCORD_GUILD_ID` para registrar os comandos rapidamente. O arquivo `.env` é privado e está protegido pelo `.gitignore`; nunca o publique.
+Preencha o `.env`:
 
-### 4. Verificar e executar
+```env
+DISCORD_TOKEN=seu_token
+DISCORD_CLIENT_ID=id_da_aplicacao
+DISCORD_GUILD_ID=id_do_servidor_de_desenvolvimento
+```
+
+### 3. Registrar e executar
 
 ```bash
 npm run check
@@ -57,95 +103,88 @@ npm run register
 npm start
 ```
 
-Se tudo estiver correto, o bot ficará conectado enquanto o processo estiver ativo. Para interromper, use `Ctrl+C`.
+Durante o desenvolvimento, `DISCORD_GUILD_ID` faz os comandos aparecerem mais rapidamente no servidor de teste. O arquivo `.env` nunca deve ser enviado ao GitHub.
 
-### 5. Fluxo Git completo
+## Usar pelo Android com Termux
 
-O repositório oficial é `https://github.com/m4ri-pz/discord-architect`. Depois do clone, confirme o endereço remoto:
+O Termux pode ser usado para editar, testar e sincronizar o projeto. Ele é adequado para desenvolvimento; manter o bot online 24 horas exige uma hospedagem apropriada.
+
+```bash
+pkg update && pkg upgrade -y
+pkg install git nodejs-lts openssh nano -y
+git clone https://github.com/m4ri-pz/discord-architect.git
+cd discord-architect
+npm install
+cp .env.example .env
+nano .env
+npm run check
+npm run register
+npm start
+```
+
+Para parar o bot, use `Ctrl+C`.
+
+## Fluxo Git
+
+Confira o repositório e a branch atual:
 
 ```bash
 git remote -v
 git branch --show-current
 ```
 
-Para editar diretamente a branch principal:
+Para atualizar e enviar uma alteração simples:
 
 ```bash
 git pull --rebase origin main
-nano src/commands/configuration.js
+# edite os arquivos
+git status
 npm run check
 git add .
 git commit -m "feat: descreva sua mudança"
 git push origin main
 ```
 
-Para trabalhar de forma mais organizada, crie uma branch para cada recurso:
-
-```bash
-git pull --rebase origin main
-git switch -c feat/painel-tickets
-# edite, teste e revise os arquivos
-npm run check
-git add .
-git commit -m "feat: melhorar painel de tickets"
-git push -u origin feat/painel-tickets
-```
-
-Depois, abra um **Pull Request** no GitHub. Quando a alteração estiver aprovada e incorporada à `main`, volte ao ambiente local:
+Para uma alteração maior, use uma branch:
 
 ```bash
 git switch main
 git pull --rebase origin main
-npm install
+git switch -c feat/nova-funcao
+# edite e teste
+npm run check
+git add .
+git commit -m "feat: adicionar nova função"
+git push -u origin feat/nova-funcao
 ```
 
-Se o Git pedir sua identidade pela primeira vez, configure apenas seu nome e e-mail público do GitHub:
+Depois, abra um Pull Request no GitHub. Nunca faça commit do `.env`, tokens, senhas ou credenciais.
 
-```bash
-git config --global user.name "m4ri-pz"
-git config --global user.email "SEU_EMAIL_DO_GITHUB"
-```
-
-Não coloque tokens em commits. Para desfazer uma mudança ainda não enviada, use `git restore caminho/do/arquivo`; para consultar o histórico, use `git log --oneline --decorate -10`.
-
-Se preferir um editor visual, abra a pasta clonada em um editor de código compatível com o armazenamento do Termux. O fluxo continua sendo o mesmo: editar, testar, fazer commit e enviar.
-
-Nunca faça commit do `.env` e nunca cole o token do Discord em mensagens, issues ou código.
-
-## Configuração do Discord
-
-1. Crie uma aplicação no Discord Developer Portal.
-2. Crie um bot e copie o token somente para `.env`.
-3. Convide-o com os escopos `bot` e `applications.commands`.
-4. Durante o desenvolvimento, use `DISCORD_GUILD_ID` para registrar comandos rapidamente.
-5. Dê ao bot somente as permissões necessárias. O cargo do bot precisa ficar acima dos cargos que ele deverá gerenciar.
-6. No Developer Portal, defina o nome exibido da aplicação como **Maomao** e escolha um avatar que você tenha permissão para usar. O código fornece a estética e os textos; nome e avatar da conta do Discord são configurados no próprio portal.
-
-## Template oficial do servidor
-
-O bot trabalha com um único template-base: **Palácio das Ervas**, uma estrutura oficial com estética de investigação, botânica, laboratório, mistérios e organização do palácio. Isso mantém os cargos, permissões e configurações essenciais consistentes em todos os servidores.
-
-Para usar a configuração pronta:
+## Organização do projeto
 
 ```text
-/template-oficial
+src/
+├── commands/       comandos Slash e painéis iniciais
+├── core/           templates oficiais, segurança e planos
+├── interactions/   roteamento de botões, menus e modais
+├── personality/    identidade e mensagens da Maomao
+├── services/       arquitetura, tickets e RPG
+└── store/          configurações persistentes por servidor
 ```
 
-O comando mostra uma prévia e, após a confirmação, configura:
+## Princípios da Maomao
 
-- cargos-base e suas permissões;
-- hierarquia planejada dos cargos;
-- categorias do palácio;
-- canais de texto e voz;
-- canais de regras, boas-vindas e anúncios em modo leitura;
-- área restrita para a equipe;
-- permissões de visualização, envio, histórico, conexão e fala;
-- estrutura de investigação, ervas, comunidade e atendimento.
+1. **Simular antes de aplicar.**
+2. **Não apagar a estrutura do servidor automaticamente.**
+3. **Não conceder permissões perigosas sem confirmação.**
+4. **Explicar o que será alterado.**
+5. **Manter cargos e configurações-base consistentes.**
+6. **Permitir personalização sem perder a identidade do bot.**
 
-O modo oficial não apaga canais ou cargos existentes. Ele cria o que estiver faltando e atualiza os itens que pertencem ao template-base. Depois da aplicação, cada administrador pode personalizar nomes, cores, canais e módulos pelo painel `/configuracao`, preservando a identidade estrutural do bot.
+## Estado do projeto
 
-Para manter a experiência coerente, o projeto não oferece importação de templates externos nem criação de templates arbitrários pelo usuário. A personalização acontece sobre a base oficial.
+A base está em desenvolvimento ativo. O próximo ciclo pode adicionar edição individual de cargos e canais, backups locais, logs avançados, painel web e configurações mais detalhadas para moderação.
 
-## Estado atual
+## Licença e uso
 
-A base inclui `/configuracao`, o `/template-oficial` do Palácio das Ervas, aplicação segura de arquitetura com permissões, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade Maomao pode ser personalizada por servidor sem trocar a base estrutural. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados e moderação visual.
+O repositório é público para estudo e desenvolvimento. Antes de usar nomes, imagens ou outros elementos de uma obra em um servidor público, verifique as permissões e os direitos aplicáveis. O código usa uma apresentação autoral para a identidade Maomao.
