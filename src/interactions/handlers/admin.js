@@ -3,12 +3,13 @@ import { getBlueprint, buildPlan } from '../../core/blueprints.js';
 import { previewTemplate, applyTemplate, cleanTemplate } from '../../services/maomao-structure.js';
 import { backupGuild } from '../../modules/provisioning/backup.js';
 import { characterProfile } from '../../personality/character-profile.js';
-import { summarizePlan } from '../../core/safety.js';
+import { canManageStructure, summarizePlan } from '../../core/safety.js';
 import { adminView } from '../../modules/admin/ui/panel.js';
 import { backRow, button, row } from '../ui.js';
 export function handles(id) { return id === 'panel:admin' || id === 'admin:diagnose' || id === 'admin:backup' || id === 'admin:apply' || id === 'admin:apply:confirm' || id === 'admin:clean' || id === 'admin:clean:confirm'; }
 export async function handle(interaction, logger) {
   const id = interaction.customId;
+  if (['admin:apply:confirm', 'admin:clean:confirm'].includes(id) && !canManageStructure(interaction.member)) return interaction.reply({ content: 'Para esta operação, você precisa de Administrador ou de ManageGuild + ManageRoles + ManageChannels.', flags: 64 });
   if (id === 'panel:admin') { const view = adminView(); return interaction.update({ content: '', embeds: [view.embed], components: view.components }); }
   if (id === 'admin:diagnose') { const { blueprint, plan } = previewTemplate('maomao-palace'); const roleNames = new Set(interaction.guild.roles.cache.map((role) => role.name)); const channelNames = new Set(interaction.guild.channels.cache.map((channel) => channel.name)); const missingRoles = plan.roles.filter((role) => !roleNames.has(role.name)).map((role) => role.name); const missingChannels = plan.channels.filter((channel) => !channelNames.has(channel.name)).map((channel) => `${channel.category}/${channel.name}`); const embed = new EmbedBuilder().setColor(characterProfile.colors.primary).setTitle('✦ Exame estrutural · Palácio das Ervas').setDescription(`${blueprint.description}\n\nA Maomao comparou a planta oficial com o servidor atual. Nenhuma alteração foi feita durante o exame.`).addFields({ name: 'Cargos a preparar', value: missingRoles.length ? missingRoles.join('\n') : 'Todos os cargos da base já estão presentes.' }, { name: 'Canais a preparar', value: missingChannels.length ? missingChannels.slice(0, 20).join('\n') : 'Todos os canais da base já estão presentes.' }, { name: 'Resumo', value: summarizePlan(plan) }); return interaction.update({ embeds: [embed], components: [row(button('admin:apply', 'Revisar organização', ButtonStyle.Success)), backRow()] }); }
   if (id === 'admin:backup') { const backup = await backupGuild(interaction.guild, 'manual-admin-backup'); return interaction.update({ content: `✦ O registro estrutural foi guardado com segurança.\n\`${backup.file}\``, embeds: [], components: [backRow()] }); }

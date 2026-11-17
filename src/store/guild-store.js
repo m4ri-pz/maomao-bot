@@ -1,27 +1,23 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
+import { env } from '../config/env.js';
+import { readJson, updateJson } from './json-store.js';
 
-const dataDir = process.env.DATA_DIR || './data';
-const file = path.join(dataDir, 'guilds.json');
+const file = path.join(env.dataDir, 'guilds.json');
 const defaults = { template: 'maomao-palace', personality: { name: 'Maomao', tone: 'curiosa, precisa, analítica, reservada e com humor seco' }, dryRun: true, automations: { welcome: false, auditLog: false }, tickets: { categoryName: '╭・ATENDIMENTO', panelTitle: 'Câmara de Atendimento' } };
 
-async function readAll() {
-  try { return JSON.parse(await fs.readFile(file, 'utf8')); }
-  catch { return {}; }
-}
-async function writeAll(data) {
-  await fs.mkdir(dataDir, { recursive: true });
-  await fs.writeFile(file, JSON.stringify(data, null, 2));
-}
-export async function getGuildConfig(guildId) {
-  const all = await readAll();
-  const current = all[guildId] ?? {};
+function merge(current = {}) {
   return { ...defaults, ...current, personality: { ...defaults.personality, ...(current.personality ?? {}) }, automations: { ...defaults.automations, ...(current.automations ?? {}) }, tickets: { ...defaults.tickets, ...(current.tickets ?? {}) } };
 }
+
+export async function getGuildConfig(guildId) {
+  const all = await readJson(file, {});
+  return merge(all[guildId]);
+}
+
 export async function updateGuildConfig(guildId, patch) {
-  const all = await readAll();
-  const current = all[guildId] ?? {};
-  all[guildId] = { ...defaults, ...current, ...patch, personality: { ...defaults.personality, ...(current.personality ?? {}), ...(patch.personality ?? {}) }, automations: { ...defaults.automations, ...(current.automations ?? {}), ...(patch.automations ?? {}) }, tickets: { ...defaults.tickets, ...(current.tickets ?? {}), ...(patch.tickets ?? {}) } };
-  await writeAll(all);
+  const all = await updateJson(file, {}, (current) => ({
+    ...current,
+    [guildId]: merge({ ...current[guildId], ...patch, personality: { ...(current[guildId]?.personality ?? {}), ...(patch.personality ?? {}) }, automations: { ...(current[guildId]?.automations ?? {}), ...(patch.automations ?? {}) }, tickets: { ...(current[guildId]?.tickets ?? {}), ...(patch.tickets ?? {}) } })
+  }));
   return all[guildId];
 }

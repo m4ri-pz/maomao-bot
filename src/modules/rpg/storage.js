@@ -1,7 +1,25 @@
-import fs from 'node:fs/promises';
 import path from 'node:path';
-const file = path.join(process.env.DATA_DIR || './data', 'rpg.json');
-async function readAll() { try { return JSON.parse(await fs.readFile(file, 'utf8')); } catch { return {}; } }
-async function writeAll(data) { await fs.mkdir(path.dirname(file), { recursive: true }); const temp = `${file}.tmp`; await fs.writeFile(temp, JSON.stringify(data, null, 2)); await fs.rename(temp, file); }
-export async function readPlayer(guildId, userId) { const all = await readAll(); return all[guildId]?.[userId] || null; }
-export async function writePlayer(guildId, userId, player) { const all = await readAll(); all[guildId] ||= {}; all[guildId][userId] = player; await writeAll(all); return player; }
+import { env } from '../../config/env.js';
+import { readJson, updateJson } from '../../store/json-store.js';
+
+const file = path.join(env.dataDir, 'rpg.json');
+
+export async function readPlayer(guildId, userId) {
+  const all = await readJson(file, {});
+  return all[guildId]?.[userId] || null;
+}
+
+export async function writePlayer(guildId, userId, player) {
+  await updateJson(file, {}, (all) => ({ ...all, [guildId]: { ...(all[guildId] || {}), [userId]: player } }));
+  return player;
+}
+
+export async function updatePlayer(guildId, userId, updater) {
+  let result;
+  await updateJson(file, {}, async (all) => {
+    const current = all[guildId]?.[userId] || null;
+    result = await updater(current);
+    return { ...all, [guildId]: { ...(all[guildId] || {}), [userId]: result } };
+  });
+  return result;
+}

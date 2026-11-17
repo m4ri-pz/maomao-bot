@@ -25,6 +25,16 @@ test('ficha nova normaliza armazenamento vazio e prepara o primeiro registro', (
   assert.deepEqual(player.inventory, ['Caderno de observações']);
 });
 
+test('ficha corrompida recebe invariantes seguros', () => {
+  const player = createPlayer({ level: 0, hp: 'invalido', inventory: 3, lastEvent: 42, quest: { goal: 0 }, talents: null });
+  assert.equal(player.level, 1);
+  assert.equal(player.hp, 100);
+  assert.deepEqual(player.inventory, ['Caderno de observações']);
+  assert.equal(player.lastEvent, 'Seu caderno está em branco. Escolha uma função para começar os registros.');
+  assert.equal(player.quest.goal, 1);
+  assert.equal(typeof player.lastEvent, 'string');
+});
+
 test('painel automático de Tickets já nasce com menu funcional', () => {
   const panel = starterEmbed('tickets');
   assert.equal(panel.components.length, 1);

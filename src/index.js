@@ -12,7 +12,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 client.once(Events.ClientReady, (ready) => { logger.info({ user: ready.user.tag, guilds: ready.guilds.cache.size }, 'Maomao abriu as portas do Palácio'); void runAutoSetup(client, logger).catch((error) => logger.error({ error: error.message, stack: error.stack }, 'A preparação automática encontrou um obstáculo')); });
 client.on(Events.InteractionCreate, async (interaction) => {
   try {
-    if (interaction.isChatInputCommand()) return await commandMap.get(interaction.commandName)?.execute(interaction);
+    if (interaction.isChatInputCommand()) { const command = commandMap.get(interaction.commandName); if (!command) { logger.warn({ command: interaction.commandName }, 'Comando slash sem handler; registro antigo ou divergente'); return interaction.reply({ content: 'Este comando está desatualizado. Registre os comandos novamente e tente outra vez.', flags: 64 }); } return await command.execute(interaction); }
     await handleInteraction(interaction, logger);
   } catch (error) {
     logger.error({ error: error.message, stack: error.stack }, 'Uma interação saiu do registro esperado');

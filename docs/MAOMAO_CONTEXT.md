@@ -32,6 +32,8 @@ O RPG deve continuar modular e baseado em botões/menus: investigação, pistas,
 
 Na revisão 6, o bot passou a liberar o próprio cargo nas permissões de publicação, aplicar permissões antes de atualizar starters, conectar Tickets à categoria visual nova e forçar uma reaplicação do template existente. Commit: `496d4e3`.
 
+Na auditoria seguinte, foram corrigidos: roteamento que bloqueava jogadores comuns do RPG; painel `/rpg` público; comandos slash desconhecidos sem resposta; `logger.warn` ausente; persistência JSON sem serialização; normalização frágil de fichas; menus de configuração com IDs instáveis/sem validação; títulos de Tickets fora dos limites; acesso da equipe aos Tickets; corrida de criação de Ticket; fechamento sem autorização; validação de templates; consolidação automática de categorias/canais conhecidos e cargos duplicados. O provisionamento foi elevado para a revisão 7. A suíte passou a ter 12 testes, além de teste manual de concorrência dos stores.
+
 ## Retomada rápida
 
 1. Conferir `git status` e os últimos commits.

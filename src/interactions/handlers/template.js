@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ButtonStyle, EmbedBuilder, StringSelectMenuBuilder } from 'discord.js';
 import { getBlueprint, listBlueprints } from '../../core/blueprints.js';
 import { applyTemplate, previewTemplate } from '../../services/maomao-structure.js';
-import { summarizePlan } from '../../core/safety.js';
+import { canManageStructure, summarizePlan } from '../../core/safety.js';
 import { getGuildConfig, updateGuildConfig } from '../../store/guild-store.js';
 import { characterProfile } from '../../personality/character-profile.js';
 import { personality } from '../../personality/messages.js';
@@ -16,8 +16,9 @@ export async function handle(interaction, logger) {
     const embed = new EmbedBuilder().setColor(characterProfile.colors.success).setTitle(`Simulação · ${blueprint.name}`).setDescription(`${blueprint.description}\n\n${personality.noDestructiveActions}`).addFields({ name: 'Plano', value: summarizePlan(plan) }, { name: 'Cargos', value: plan.roles.map((role) => `• ${role.name}`).join('\n').slice(0, 1024) }, { name: 'Canais', value: plan.channels.map((channel) => `• ${channel.category} / ${channel.name}`).join('\n').slice(0, 1024) });
     return interaction.update({ content: 'Leia o registro com calma. A organização cria o que falta e preserva o que já foi construído.', embeds: [embed], components: [row(button(`template:save:${blueprint.id}`, 'Guardar escolha', ButtonStyle.Primary), button(`template:apply:${blueprint.id}`, 'Organizar Palácio', ButtonStyle.Success), button('panel:home', 'Voltar ao salão'))] });
   }
-  if (interaction.customId.startsWith('template:save:')) { const id = interaction.customId.split(':')[2]; await updateGuildConfig(interaction.guildId, { template: id }); return interaction.update({ content: '✦ Escolha guardada no registro deste servidor. A organização continua separada e só acontece após outra confirmação.', embeds: [], components: [backRow()] }); }
+  if (interaction.customId.startsWith('template:save:')) { const id = interaction.customId.split(':')[2]; if (!listBlueprints().includes(id)) return interaction.reply({ content: 'Esta base expirou. Abra o catálogo oficial novamente.', flags: 64 }); await updateGuildConfig(interaction.guildId, { template: id }); return interaction.update({ content: '✦ Escolha guardada no registro deste servidor. A organização continua separada e só acontece após outra confirmação.', embeds: [], components: [backRow()] }); }
   if (interaction.customId.startsWith('template:apply:') || interaction.customId === 'official:apply') {
-    await interaction.deferUpdate(); const id = interaction.customId === 'official:apply' ? 'maomao-palace' : interaction.customId.split(':')[2]; const result = await applyTemplate(interaction.guild, id, logger); await updateGuildConfig(interaction.guildId, { template: id }); return interaction.editReply({ content: `✦ Organização concluída: ${summarizePlan(result.plan)}. Cargos, hierarquia e permissões foram examinados sem apagar itens existentes.`, embeds: [], components: [backRow()] });
+    if (!canManageStructure(interaction.member)) return interaction.reply({ content: 'Para organizar a estrutura, você precisa de Administrador ou de ManageGuild + ManageRoles + ManageChannels.', flags: 64 });
+    await interaction.deferUpdate(); const id = interaction.customId === 'official:apply' ? 'maomao-palace' : interaction.customId.split(':')[2]; if (!listBlueprints().includes(id)) return interaction.editReply({ content: 'Esta base expirou. Abra o catálogo oficial novamente.', embeds: [], components: [backRow()] }); const result = await applyTemplate(interaction.guild, id, logger); await updateGuildConfig(interaction.guildId, { template: id }); return interaction.editReply({ content: `✦ Organização concluída: ${summarizePlan(result.plan)}. Cargos, hierarquia e permissões foram examinados sem apagar itens existentes.`, embeds: [], components: [backRow()] });
   }
 }
