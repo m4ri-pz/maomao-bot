@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const dataDir = process.env.DATA_DIR || './data';
 const file = path.join(dataDir, 'guilds.json');
-const defaults = { template: 'maomao-palace', personality: { name: 'Maomao', tone: 'curiosa, precisa, analítica, reservada e com humor seco' }, dryRun: true, automations: { welcome: false, auditLog: false }, tickets: { categoryName: 'ATENDIMENTO', panelTitle: 'Câmara de Atendimento' } };
+const defaults = { template: 'maomao-palace', personality: { name: 'Maomao', tone: 'curiosa, precisa, analítica, reservada e com humor seco' }, dryRun: true, automations: { welcome: false, auditLog: false }, tickets: { categoryName: '╭・ATENDIMENTO', panelTitle: 'Câmara de Atendimento' } };
 
 async function readAll() {
   try { return JSON.parse(await fs.readFile(file, 'utf8')); }

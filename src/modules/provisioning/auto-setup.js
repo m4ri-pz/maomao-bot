@@ -5,7 +5,7 @@ import { getProvisioningState, saveProvisioningState } from './state.js';
 import { applyTemplate } from '../../services/maomao-structure.js';
 import { updateGuildConfig } from '../../store/guild-store.js';
 
-const TEMPLATE_REVISION = 5;
+const TEMPLATE_REVISION = 6;
 
 export async function runAutoSetup(client, logger) {
   if (!env.autoSetup) return { status: 'disabled' };
