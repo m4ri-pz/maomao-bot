@@ -12,7 +12,9 @@ export async function execute(interaction) {
     new ButtonBuilder().setCustomId('panel:roles').setLabel('Cargos').setStyle(ButtonStyle.Secondary),
     new ButtonBuilder().setCustomId('panel:channels').setLabel('Canais').setStyle(ButtonStyle.Secondary),
     new ButtonBuilder().setCustomId('panel:automation').setLabel('Automações').setStyle(ButtonStyle.Success),
-    new ButtonBuilder().setCustomId('panel:personality').setLabel('Personalidade').setStyle(ButtonStyle.Secondary)
+    new ButtonBuilder().setCustomId('panel:personality').setLabel('Personalidade').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('panel:tickets').setLabel('Tickets').setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setCustomId('panel:rpg').setLabel('RPG').setStyle(ButtonStyle.Success)
   );
   return interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
 }

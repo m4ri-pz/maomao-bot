@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const dataDir = process.env.DATA_DIR || './data';
 const file = path.join(dataDir, 'guilds.json');
-const defaults = { template: 'community', personality: { name: 'A.U.R.A.', tone: 'clara, prestativa e técnica' }, dryRun: true, automations: { welcome: false, auditLog: false } };
+const defaults = { template: 'community', personality: { name: 'A.U.R.A.', tone: 'clara, prestativa e técnica' }, dryRun: true, automations: { welcome: false, auditLog: false }, tickets: { categoryName: 'TICKETS', panelTitle: 'Central de atendimento' } };
 
 async function readAll() {
   try { return JSON.parse(await fs.readFile(file, 'utf8')); }
@@ -15,11 +15,13 @@ async function writeAll(data) {
 }
 export async function getGuildConfig(guildId) {
   const all = await readAll();
-  return { ...defaults, ...(all[guildId] ?? {}) };
+  const current = all[guildId] ?? {};
+  return { ...defaults, ...current, personality: { ...defaults.personality, ...(current.personality ?? {}) }, automations: { ...defaults.automations, ...(current.automations ?? {}) }, tickets: { ...defaults.tickets, ...(current.tickets ?? {}) } };
 }
 export async function updateGuildConfig(guildId, patch) {
   const all = await readAll();
-  all[guildId] = { ...defaults, ...(all[guildId] ?? {}), ...patch };
+  const current = all[guildId] ?? {};
+  all[guildId] = { ...defaults, ...current, ...patch, personality: { ...defaults.personality, ...(current.personality ?? {}), ...(patch.personality ?? {}) }, automations: { ...defaults.automations, ...(current.automations ?? {}), ...(patch.automations ?? {}) }, tickets: { ...defaults.tickets, ...(current.tickets ?? {}), ...(patch.tickets ?? {}) } };
   await writeAll(all);
   return all[guildId];
 }

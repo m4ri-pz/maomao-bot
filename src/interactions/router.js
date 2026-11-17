@@ -3,6 +3,9 @@ import { getBlueprint, listBlueprints, buildPlan } from '../core/blueprints.js';
 import { applyTemplate, previewTemplate } from '../services/architect.js';
 import { canArchitect, summarizePlan } from '../core/safety.js';
 import { getGuildConfig, updateGuildConfig } from '../store/guild-store.js';
+import { createTicket, closeTicket } from '../services/tickets.js';
+import { act, getPlayer, playerText } from '../services/rpg.js';
+import { buttons as rpgButtons, card as rpgCard } from '../commands/rpg.js';
 
 function templateMenu() {
   return new ActionRowBuilder().addComponents(new StringSelectMenuBuilder().setCustomId('template:select').setPlaceholder('Escolha um template').addOptions(listBlueprints().map((id) => { const b = getBlueprint(id); return { label: b.name, description: b.description.slice(0, 100), value: id }; })));
@@ -11,6 +14,16 @@ function backButton() { return new ActionRowBuilder().addComponents(new ButtonBu
 
 export async function handleInteraction(interaction, logger) {
   if (!interaction.isButton() && !interaction.isStringSelectMenu()) return false;
+  if (interaction.customId === 'ticket:open') {
+    const result = await createTicket(interaction);
+    return interaction.reply({ content: result.created ? `Ticket criado: ${result.channel}` : `Você já possui um ticket aberto: ${result.channel}`, ephemeral: true });
+  }
+  if (interaction.customId === 'ticket:close') return closeTicket(interaction);
+  if (interaction.customId.startsWith('rpg:')) {
+    const action = interaction.customId.split(':')[1];
+    const player = await act(interaction.guildId, interaction.user.id, action);
+    return interaction.update({ embeds: [rpgCard(player, interaction.user.username)], components: [rpgButtons()] });
+  }
   if (!interaction.guild || !canArchitect(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', ephemeral: true });
   if (interaction.customId === 'panel:home') {
     const config = await getGuildConfig(interaction.guildId);
@@ -38,5 +51,7 @@ export async function handleInteraction(interaction, logger) {
   if (interaction.customId === 'panel:channels') return interaction.update({ content: 'Painel de canais em construção. A aplicação já cria categorias e canais ausentes sem apagar sua estrutura.', embeds: [], components: [backButton()] });
   if (interaction.customId === 'panel:automation') return interaction.update({ content: 'Automações planejadas: boas-vindas, logs de auditoria, tickets, onboarding e lembretes. Cada uma terá botão de ativar/desativar e registro.', embeds: [], components: [backButton()] });
   if (interaction.customId === 'panel:personality') return interaction.update({ content: 'Personalidade atual: **A.U.R.A.**, uma arquiteta clara e técnica. A próxima etapa adicionará modal para nome, tom, saudação e regras de comportamento.', embeds: [], components: [backButton()] });
+  if (interaction.customId === 'panel:tickets') return interaction.update({ content: 'Tickets configuráveis: publique o painel com `/painel-tickets`. A próxima etapa adicionará edição visual de categoria, título, perguntas, cargos de atendimento, limite por usuário e logs.', embeds: [], components: [backButton()] });
+  if (interaction.customId === 'panel:rpg') return interaction.update({ content: 'RPG interativo ativo: use `/rpg`. A próxima etapa adicionará classes, missões, inventário, lojas, batalhas, mapas, guildas e eventos narrativos configuráveis.', embeds: [], components: [backButton()] });
   return false;
 }
