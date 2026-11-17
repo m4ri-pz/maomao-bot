@@ -21,7 +21,7 @@ export async function handleInteraction(interaction, logger) {
   if (interaction.customId === 'ticket:close') return closeTicket(interaction);
   if (interaction.customId === 'panel:home') { const view = await homeView(interaction.guildId); return interaction.update({ content: '', embeds: [view.embed], files: view.files, components: view.components }); }
   if (interaction.customId === 'panel:cancel') return interaction.update({ content: 'Operação cancelada. Nenhuma alteração foi aplicada.', embeds: [], components: [] });
-  if (!interaction.guild || !canManageServer(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', ephemeral: true });
+  if (!interaction.guild || !canManageServer(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', flags: 64 });
   const domain = domains.find((candidate) => candidate.handles(interaction.customId));
   if (domain) return domain.handle(interaction, logger);
   return false;

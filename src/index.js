@@ -16,7 +16,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     await handleInteraction(interaction, logger);
   } catch (error) {
     logger.error({ error: error.message, stack: error.stack }, 'Uma interação saiu do registro esperado');
-    const payload = { content: 'A Maomao encontrou um detalhe fora do lugar. Consulte os registros e tente novamente com calma.', ephemeral: true };
+    const payload = { content: 'A Maomao encontrou um detalhe fora do lugar. Consulte os registros e tente novamente com calma.', flags: 64 };
     if (interaction.deferred || interaction.replied) await interaction.editReply(payload).catch(() => {});
     else await interaction.reply(payload).catch(() => {});
   }

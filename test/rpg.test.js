@@ -14,3 +14,11 @@ test('estado RPG preserva caso ativo, inventário e ingredientes', () => {
   assert.deepEqual(player.discoveredClues, ['empty-shelf']);
   assert.ok(player.ingredients.includes('pó de jade'));
 });
+
+test('ficha nova normaliza armazenamento vazio e prepara o primeiro registro', () => {
+  const player = createPlayer(null);
+  assert.equal(player.level, 1);
+  assert.equal(player.quest.name, 'Primeiros registros');
+  assert.match(player.lastEvent, /caderno está em branco/i);
+  assert.deepEqual(player.inventory, ['Caderno de observações']);
+});

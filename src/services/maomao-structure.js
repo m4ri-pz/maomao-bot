@@ -32,8 +32,8 @@ export async function applyTemplate(guild, templateId, logger) {
   const roleMap = new Map();
   for (const role of plan.roles) {
     let current = guild.roles.cache.find((item) => item.name === role.name);
-    if (!current) current = await guild.roles.create({ name: role.name, color: role.color, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: criar cargo do template ${templateId}` });
-    else if (current.editable) await current.edit({ color: role.color, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: configurar cargo do template ${templateId}` });
+    if (!current) current = await guild.roles.create({ name: role.name, colors: { primaryColor: role.color }, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: preparar o cargo do Palácio ${templateId}` });
+    else if (current.editable) await current.edit({ colors: { primaryColor: role.color }, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: atualizar o cargo do Palácio ${templateId}` });
     roleMap.set(role.name, current);
   }
   await setRoleOrder(guild, plan.roles, roleMap, logger);
