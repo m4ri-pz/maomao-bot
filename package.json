@@ -2,7 +2,7 @@
   "name": "maomao-bot",
   "version": "0.2.0",
   "private": true,
-  "description": "Maomao Bot profissional com provisionamento seguro, painéis visuais, Tickets, RPG modular e assets arquitetados.",
+  "description": "Maomao Bot: organização visual de servidores, atendimento reservado e RPG narrativo do Palácio das Ervas.",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",

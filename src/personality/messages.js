@@ -3,7 +3,10 @@ export const personality = {
   name: () => characterProfile.name,
   panelTitle: (area, name = characterProfile.name) => `${name} · ${area}`,
   safe: (text) => `✦ ${text}`,
-  error: (text) => `Não consegui concluir esta etapa ainda. ${text}`,
-  preview: 'Primeiro eu mostro o plano. Você decide quando aplicar.',
-  noDestructiveActions: 'Nenhum canal ou cargo será apagado automaticamente nesta etapa.'
+  error: (text) => `A análise encontrou um obstáculo. ${text}`,
+  preview: 'Primeiro examinamos o plano. Depois você decide se ele merece ser aplicado.',
+  noDestructiveActions: 'Nenhum cargo, canal ou mensagem existente será apagado automaticamente.',
+  cancel: 'Tudo bem. A operação foi arquivada sem alterações.',
+  saved: 'Registro atualizado. A mudança foi guardada, mas ainda não foi aplicada ao servidor.',
+  footer: characterProfile.signature
 };
