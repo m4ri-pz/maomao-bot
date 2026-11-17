@@ -14,6 +14,9 @@
   <a href="https://discord.gg/HCsbqh4umN">🌸 Entrar no Discord oficial da Maomao</a>
 </p>
 
+> [!WARNING]
+> **Versão beta em desenvolvimento.** Muitas funções ainda estão em testes, podem apresentar falhas, mudanças de comportamento ou exigir ajustes de permissões. Faça testes em um servidor de ensaio e mantenha os dados importantes protegidos antes de usar a organização automática.
+
 ## ✦ A ideia
 
 Maomao não é um amontoado de comandos. Ela observa a estrutura do servidor, apresenta o que encontrou e oferece uma ação clara para cada etapa.

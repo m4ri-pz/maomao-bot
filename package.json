@@ -1,6 +1,6 @@
 {
   "name": "maomao-bot",
-  "version": "0.2.0",
+  "version": "0.2.0-beta.1",
   "private": true,
   "description": "Maomao Bot: organização visual de servidores, atendimento reservado e RPG narrativo do Palácio das Ervas.",
   "type": "module",
