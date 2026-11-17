@@ -1,0 +1,17 @@
+{
+  "name": "discord-architect",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bot Discord modular para projetar, configurar e automatizar servidores com segurança.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "check": "node --check src/index.js && node --test",
+    "register": "node src/deploy-commands.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^16.6.1"
+  }
+}
