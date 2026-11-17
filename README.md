@@ -77,7 +77,7 @@ A aplicação oficial prepara descrições de canais e publica mensagens curtas 
 
 ### Limpar uma base antiga
 
-Se o servidor já recebeu uma versão anterior do template, abra `/painel-admin` e escolha **Limpar base antiga**. A Maomao fará um backup antes de agir e removerá somente:
+Se o servidor já recebeu uma versão anterior do template, abra `/painel-admin` e escolha **Limpar base antiga**. A limpeza exige confirmação, mas não cria backup automático; se quiser guardar um registro, use primeiro o botão separado **Guardar backup**. Ela removerá somente:
 
 - mensagens publicadas pelo próprio bot;
 - canais antigos cujo nome, categoria e descrição coincidam com a lista de migração;
