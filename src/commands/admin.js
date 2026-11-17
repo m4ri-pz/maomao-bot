@@ -6,5 +6,5 @@ export const data = new SlashCommandBuilder().setName('painel-admin').setDescrip
 export async function execute(interaction) {
   if (!canManageServer(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para abrir o centro administrativo.', ephemeral: true });
   const view = await homeView(interaction.guildId);
-  return interaction.reply({ content: 'Centro da Maomao aberto. Escolha uma área para revisar.', embeds: [view.embed], components: view.components, ephemeral: true });
+  return interaction.reply({ content: 'Centro da Maomao aberto. Escolha uma área para revisar.', embeds: [view.embed], files: view.files, components: view.components, ephemeral: true });
 }

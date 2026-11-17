@@ -1,0 +1,3 @@
+function bool(value, fallback = false) { return value == null || value === '' ? fallback : ['1', 'true', 'yes', 'sim'].includes(String(value).toLowerCase()); }
+export const env = Object.freeze({ token: process.env.DISCORD_TOKEN, clientId: process.env.DISCORD_CLIENT_ID, guildId: process.env.DISCORD_GUILD_ID || '', dataDir: process.env.DATA_DIR || './data', logLevel: process.env.LOG_LEVEL || 'info', autoSetup: bool(process.env.MAOMAO_AUTO_SETUP), autoSetupGuildId: process.env.MAOMAO_AUTO_SETUP_GUILD_ID || '', setupMode: process.env.MAOMAO_SETUP_MODE || 'additive' });
+export function assertRuntimeEnv() { if (!env.token) throw new Error('DISCORD_TOKEN não configurado. Copie .env.example para .env.'); }

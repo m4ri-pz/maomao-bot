@@ -1,0 +1,2 @@
+export const maomaoTheme = Object.freeze({ name: 'Maomao', palette: { night: 0x08060d, purple: 0x6d3bb8, lilac: 0xa875e8, silver: 0xd8d3e2, gold: 0xc89b55, success: 0x6ca66a, danger: 0x9c4b68 }, assets: { avatar: 'assets/branding/bot-avatar.png', banner: 'assets/branding/bot-banner.png', mainPanel: 'assets/panels/main-panel.png', ticketPanel: 'assets/panels/tickets-panel.png', rpgPanel: 'assets/panels/rpg-panel.png' } });
+export const embedColor = (key = 'purple') => maomaoTheme.palette[key] ?? maomaoTheme.palette.purple;

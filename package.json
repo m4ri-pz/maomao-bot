@@ -1,8 +1,8 @@
 {
   "name": "maomao-bot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Bot Discord modular com personalidade Maomao, template oficial, painéis, Tickets, RPG e permissões organizadas.",
+  "description": "Maomao Bot profissional com provisionamento seguro, painéis visuais, Tickets, RPG modular e assets arquitetados.",
   "type": "module",
   "scripts": {
     "start": "node src/index.js",

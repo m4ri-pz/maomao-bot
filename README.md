@@ -105,6 +105,20 @@ npm start
 
 Durante o desenvolvimento, `DISCORD_GUILD_ID` faz os comandos aparecerem mais rapidamente no servidor de teste. O arquivo `.env` nunca deve ser enviado ao GitHub.
 
+### Configuração automática do servidor
+
+Depois que o bot estiver convidado para o seu servidor, a configuração inicial pode ser ativada no `.env`:
+
+```env
+MAOMAO_AUTO_SETUP=true
+MAOMAO_AUTO_SETUP_GUILD_ID=id_do_seu_servidor
+MAOMAO_SETUP_MODE=additive
+```
+
+Ao iniciar no Termux, Maomao verifica o servidor indicado, cria um backup estrutural e aplica o Palácio das Ervas de forma idempotente. Se a configuração já foi concluída, ela não duplica canais nem cargos. O único modo permitido atualmente é `additive`: nada é apagado automaticamente.
+
+O bot precisa de `Gerenciar Servidor`, `Gerenciar Cargos` e `Gerenciar Canais`. Se alguma permissão faltar, o provisionamento é bloqueado e o motivo aparece nos logs.
+
 ## Usar pelo Android com Termux
 
 O Termux pode ser usado para editar, testar e sincronizar o projeto. Ele é adequado para desenvolvimento; manter o bot online 24 horas exige uma hospedagem apropriada.
@@ -192,6 +206,21 @@ services + store
 ```
 
 Isso permite ampliar cargos, canais, permissões e automações sem transformar um único arquivo em um painel impossível de manter. Cada domínio pode ganhar novas telas, confirmações e testes sem reescrever o bot inteiro.
+
+O RPG já possui uma camada própria em `src/modules/rpg/`, com domínio de personagem, armazenamento, motor de regras e espaços preparados para casos, locais, eventos e alquimia. A próxima evolução pode substituir as regras atuais sem contaminar os painéis administrativos.
+
+## Assets e imagens
+
+Imagens não ficam espalhadas pelo código. O catálogo visual está em `src/branding/assets.js` e os arquivos esperados ficam em:
+
+```text
+assets/
+├── branding/       avatar e banner do bot
+├── panels/         imagens dos painéis
+└── rpg/            personagens, locais, itens e eventos
+```
+
+O banner e a foto originais devem ser colocados nessas pastas como arquivos separados, não como captura de tela da interface do celular. Cada imagem deverá ser registrada com contexto e texto alternativo antes de ser usada em um embed.
 
 ## Princípios da Maomao
 
