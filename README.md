@@ -51,7 +51,7 @@ Lá você poderá acompanhar a evolução do Palácio das Ervas, testar os pain�
 
 ## ❖ O servidor oficial
 
-O template único se chama **Palácio das Ervas · Base essencial**. Ele foi redesenhado para ser leve, bonito e fácil de entender: sete áreas e somente dezessete canais, sem corredores repetidos ou textos longos demais.
+O template único se chama **Palácio das Ervas · Base essencial**. Ele foi redesenhado para seguir um princípio comum em layouts minimalistas: poucas categorias, nomes consistentes e uma porta clara para cada função. São cinco áreas e dezessete canais, sem corredores repetidos ou textos longos demais.
 
 ### Cargos
 
@@ -66,13 +66,11 @@ O template único se chama **Palácio das Ervas · Base essencial**. Ele foi red
 ### Áreas
 
 ```text
-PORTÃO DO PALÁCIO
-CASA DAS ERVAS
-INVESTIGAÇÕES
-PÁTIO
-RPG · REGISTROS
-ATENDIMENTO
-ÁREA RESTRITA
+╭・PORTÃO
+╭・PALÁCIO
+╭・AVENTURAS
+╭・ATENDIMENTO
+╭・EQUIPE
 ```
 
 A aplicação oficial prepara descrições de canais e publica mensagens curtas em boas-vindas, regras, anúncios, biblioteca, relatórios, painel do RPG e atendimento. A Câmara de Atendimento já nasce com um menu funcional para abrir Orientação geral, Relato reservado, Sugestão ou Proposta de parceria.
