@@ -1,8 +1,8 @@
 const blueprints = {
   'maomao-palace': {
     id: 'maomao-palace',
-    name: 'Palácio das Ervas · Servidor oficial',
-    description: 'Uma estrutura completa para comunidade, atendimento, investigação, botânica, RPG e eventos do palácio.',
+    name: 'Palácio das Ervas · Base essencial',
+    description: 'Uma estrutura enxuta para convivência, atendimento, investigação e RPG — somente o necessário para o Palácio respirar.',
     staffRoles: ['Regente do Palácio', 'Curandeiro-chefe', 'Investigador', 'Mestre de Atendimento'],
     roles: [
       { name: 'Regente do Palácio', color: 0xc89b55, permissions: ['ManageGuild', 'ManageRoles', 'ManageChannels'], hoist: true },
@@ -14,49 +14,59 @@ const blueprints = {
       { name: 'Bot', color: 0x6d3bb8, permissions: ['ViewChannel', 'SendMessages', 'ReadMessageHistory', 'EmbedLinks', 'AttachFiles'] }
     ],
     categories: [
-      { name: 'PORTÃO DO PALÁCIO', description: 'Primeiros passos, regras e comunicados oficiais.', channels: [
-        { name: 'boas-vindas', type: 'text', readOnly: true, topic: 'Recepção oficial do Palácio das Ervas.', starter: 'welcome' },
-        { name: 'regras-do-palácio', type: 'text', readOnly: true, topic: 'Leia as regras antes de participar.', starter: 'rules' },
-        { name: 'anúncios', type: 'text', readOnly: true, topic: 'Comunicados oficiais da Maomao.', starter: 'announcements' },
-        { name: 'escolha-seu-cargo', type: 'text', topic: 'Escolha seus cargos e preferências pelos painéis da Maomao.' }
+      { name: 'PORTÃO DO PALÁCIO', description: 'A entrada: boas-vindas, regras e avisos.', channels: [
+        { name: 'boas-vindas', type: 'text', readOnly: true, topic: 'Entrada do Palácio das Ervas.', starter: 'welcome' },
+        { name: 'regras', type: 'text', readOnly: true, topic: 'Regras de convivência do Palácio.', starter: 'rules' },
+        { name: 'anúncios', type: 'text', readOnly: true, topic: 'Avisos oficiais da equipe.', starter: 'announcements' }
       ] },
-      { name: 'CASA DAS ERVAS', description: 'Botânica, receitas, estudos e conversas sobre ingredientes.', channels: [
-        { name: 'laboratório-de-ervas', type: 'text', topic: 'Experimentos, ingredientes e descobertas.' },
-        { name: 'biblioteca-de-casos', type: 'text', readOnly: true, topic: 'Arquivo de casos resolvidos.', starter: 'case-library' },
-        { name: 'ingredientes-e-receitas', type: 'text', topic: 'Receitas, alquimia e combinações.' },
-        { name: 'sala-de-estudos', type: 'voice', topic: 'Sala de estudos do Palácio.' }
+      { name: 'CASA DAS ERVAS', description: 'Conversa sobre ervas, receitas e descobertas.', channels: [
+        { name: 'laboratório', type: 'text', topic: 'Ingredientes, receitas e experimentos.' },
+        { name: 'biblioteca', type: 'text', readOnly: true, topic: 'Arquivo de descobertas e casos encerrados.', starter: 'case-library' },
+        { name: 'sala-de-estudos', type: 'voice', topic: 'Estudos e conversas tranquilas.' }
       ] },
-      { name: 'INVESTIGAÇÕES', description: 'O centro narrativo para casos, pistas e relatórios.', channels: [
-        { name: 'casos-abertos', type: 'text', topic: 'Casos ativos da comunidade.' },
-        { name: 'pistas-e-teorias', type: 'text', topic: 'Compartilhe pistas sem revelar tudo de uma vez.' },
-        { name: 'relatórios-de-caso', type: 'text', readOnly: true, topic: 'Relatórios finalizados pela equipe.', starter: 'case-reports' },
-        { name: 'sala-de-consulta', type: 'voice', topic: 'Consultas e reuniões de investigação.' }
+      { name: 'INVESTIGAÇÕES', description: 'Casos ativos e registros importantes.', channels: [
+        { name: 'casos', type: 'text', topic: 'Casos e mistérios em andamento.' },
+        { name: 'relatórios', type: 'text', readOnly: true, topic: 'Casos encerrados e revisados.', starter: 'case-reports' },
+        { name: 'sala-de-consulta', type: 'voice', topic: 'Reuniões de investigação.' }
       ] },
-      { name: 'PÁTIO DA COMUNIDADE', description: 'Convivência, artes, memes, apresentações e voz.', channels: [
+      { name: 'PÁTIO', description: 'O espaço leve para a comunidade.', channels: [
         { name: 'conversas', type: 'text', topic: 'Conversa livre da comunidade.' },
-        { name: 'memes-e-artes', type: 'text', topic: 'Artes, imagens e momentos engraçados.' },
-        { name: 'apresentações', type: 'text', topic: 'Apresente-se para o Palácio.' },
-        { name: 'salão-principal', type: 'voice', topic: 'Convivência da comunidade.' }
+        { name: 'artes-e-momentos', type: 'text', topic: 'Artes, imagens e momentos divertidos.' },
+        { name: 'salão-principal', type: 'voice', topic: 'Convivência do Palácio.' }
       ] },
-      { name: 'RPG · REGISTROS DO PALÁCIO', description: 'Área interativa do RPG da Maomao.', channels: [
-        { name: 'painel-do-rpg', type: 'text', readOnly: true, topic: 'Painel interativo do RPG. Use os botões da Maomao.', starter: 'rpg-panel' },
-        { name: 'casos-do-palácio', type: 'text', topic: 'Narrativas e casos disponíveis.' },
-        { name: 'salão-de-eventos', type: 'text', topic: 'Eventos temporários e anúncios narrativos.' },
-        { name: 'taverna-do-palácio', type: 'voice', topic: 'Conversa durante as aventuras.' }
+      { name: 'RPG · REGISTROS', description: 'A porta de entrada do RPG interativo.', channels: [
+        { name: 'painel-do-rpg', type: 'text', readOnly: true, topic: 'Painel interativo dos Registros do Palácio.', starter: 'rpg-panel' },
+        { name: 'taverna', type: 'voice', topic: 'Conversa durante as aventuras.' }
       ] },
-      { name: 'ATENDIMENTO', description: 'Ajuda, sugestões e encaminhamento privado.', channels: [
-        { name: 'central-de-ajuda', type: 'text', readOnly: true, topic: 'Abra um Ticket pelo painel de atendimento.', starter: 'tickets' },
-        { name: 'sugestões', type: 'text', topic: 'Sugestões para o Palácio.' },
-        { name: 'denúncias', type: 'text', topic: 'Use Tickets para assuntos sensíveis.' }
+      { name: 'ATENDIMENTO', description: 'Ajuda em uma única porta privada.', channels: [
+        { name: 'central-de-atendimento', type: 'text', readOnly: true, topic: 'Abra um atendimento pelo painel.', starter: 'tickets' }
       ] },
-      { name: 'ÁREA RESTRITA', description: 'Registros internos e coordenação da equipe.', staffOnly: true, channels: [
-        { name: 'registros-da-equipe', type: 'text', topic: 'Logs e decisões internas da equipe.' },
-        { name: 'sala-da-equipe', type: 'voice', topic: 'Reuniões privadas da equipe.' }
+      { name: 'ÁREA RESTRITA', description: 'Registros internos da equipe.', staffOnly: true, channels: [
+        { name: 'registros-da-equipe', type: 'text', topic: 'Logs e decisões internas.' },
+        { name: 'sala-da-equipe', type: 'voice', topic: 'Reuniões privadas.' }
       ] }
     ]
   }
 };
 
+export const legacyTemplateChannels = Object.freeze([
+  { category: 'PORTÃO DO PALÁCIO', name: 'regras-do-palácio', topic: 'Leia as regras antes de participar.' },
+  { category: 'PORTÃO DO PALÁCIO', name: 'escolha-seu-cargo', topic: 'Escolha seus cargos e preferências pelos painéis da Maomao.' },
+  { category: 'CASA DAS ERVAS', name: 'laboratório-de-ervas', topic: 'Experimentos, ingredientes e descobertas.' },
+  { category: 'CASA DAS ERVAS', name: 'biblioteca-de-casos', topic: 'Arquivo de casos resolvidos.' },
+  { category: 'CASA DAS ERVAS', name: 'ingredientes-e-receitas', topic: 'Receitas, alquimia e combinações.' },
+  { category: 'INVESTIGAÇÕES', name: 'casos-abertos', topic: 'Casos ativos da comunidade.' },
+  { category: 'INVESTIGAÇÕES', name: 'pistas-e-teorias', topic: 'Compartilhe pistas sem revelar tudo de uma vez.' },
+  { category: 'INVESTIGAÇÕES', name: 'relatórios-de-caso', topic: 'Relatórios finalizados pela equipe.' },
+  { category: 'PÁTIO DA COMUNIDADE', name: 'memes-e-artes', topic: 'Artes, imagens e momentos engraçados.' },
+  { category: 'PÁTIO DA COMUNIDADE', name: 'apresentações', topic: 'Apresente-se para o Palácio.' },
+  { category: 'RPG · REGISTROS DO PALÁCIO', name: 'casos-do-palácio', topic: 'Narrativas e casos disponíveis.' },
+  { category: 'RPG · REGISTROS DO PALÁCIO', name: 'salão-de-eventos', topic: 'Eventos temporários e anúncios narrativos.' },
+  { category: 'ATENDIMENTO', name: 'central-de-ajuda', topic: 'Abra um Ticket pelo painel de atendimento.' },
+  { category: 'ATENDIMENTO', name: 'sugestões', topic: 'Sugestões para o Palácio.' },
+  { category: 'ATENDIMENTO', name: 'denúncias', topic: 'Use Tickets para assuntos sensíveis.' }
+]);
+
 export function listBlueprints() { return Object.keys(blueprints); }
-export function getBlueprint(id) { const blueprint = blueprints[id]; if (!blueprint) throw new Error(`Template desconhecido: ${id}`); return structuredClone(blueprint); }
+export function getBlueprint(id) { const blueprint = blueprints[id]; if (!blueprint) throw new Error(`Base desconhecida: ${id}`); return structuredClone(blueprint); }
 export function buildPlan(blueprint) { return { roles: blueprint.roles, categories: blueprint.categories, channels: blueprint.categories.flatMap((category) => category.channels.map((channel) => ({ ...channel, category: category.name, staffOnly: category.staffOnly ?? false }))) }; }

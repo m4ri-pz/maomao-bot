@@ -51,7 +51,7 @@ Lá você poderá acompanhar a evolução do Palácio das Ervas, testar os pain�
 
 ## ❖ O servidor oficial
 
-O template único se chama **Palácio das Ervas**. Ele foi desenhado para que um servidor novo já tenha uma identidade coerente, em vez de receber apenas canais vazios.
+O template único se chama **Palácio das Ervas · Base essencial**. Ele foi redesenhado para ser leve, bonito e fácil de entender: sete áreas e somente dezessete canais, sem corredores repetidos ou textos longos demais.
 
 ### Cargos
 
@@ -69,13 +69,23 @@ O template único se chama **Palácio das Ervas**. Ele foi desenhado para que um
 PORTÃO DO PALÁCIO
 CASA DAS ERVAS
 INVESTIGAÇÕES
-PÁTIO DA COMUNIDADE
-RPG · REGISTROS DO PALÁCIO
+PÁTIO
+RPG · REGISTROS
 ATENDIMENTO
 ÁREA RESTRITA
 ```
 
-A aplicação oficial também prepara descrições de canais e publica mensagens iniciais em boas-vindas, regras, anúncios, biblioteca de casos, relatórios, painel do RPG e atendimento.
+A aplicação oficial prepara descrições de canais e publica mensagens curtas em boas-vindas, regras, anúncios, biblioteca, relatórios, painel do RPG e atendimento.
+
+### Limpar uma base antiga
+
+Se o servidor já recebeu uma versão anterior do template, abra `/painel-admin` e escolha **Limpar base antiga**. A Maomao fará um backup antes de agir e removerá somente:
+
+- mensagens publicadas pelo próprio bot;
+- canais antigos cujo nome, categoria e descrição coincidam com a lista de migração;
+- estruturas identificadas como parte da base anterior.
+
+Depois da limpeza, use **Organizar nova base**. Conteúdo escrito pelos membros não entra nessa limpeza.
 
 ### Segurança da aplicação
 
