@@ -17,7 +17,7 @@ const domains = [
 
 export async function handleInteraction(interaction, logger) {
   if (!interaction.isButton() && !interaction.isStringSelectMenu() && !interaction.isModalSubmit()) return false;
-  if (interaction.customId === 'ticket:open') return openTicket(interaction);
+  if (interaction.customId === 'ticket:open' || interaction.customId === 'ticket:type') return interaction.customId === 'ticket:open' ? openTicket(interaction) : handleTickets(interaction);
   if (interaction.customId === 'ticket:close') return closeTicket(interaction);
   if (interaction.customId === 'panel:home') { const view = await homeView(interaction.guildId); return interaction.update({ content: '', embeds: [view.embed], files: view.files, components: view.components }); }
   if (interaction.customId === 'panel:cancel') return interaction.update({ content: 'Operação cancelada. Nenhuma alteração foi aplicada.', embeds: [], components: [] });

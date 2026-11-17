@@ -17,16 +17,16 @@ const blueprints = {
         { name: 'anúncios', type: 'text', readOnly: true, topic: 'Avisos oficiais da equipe.', starter: 'announcements' }
       ] },
       { name: '╭・PALÁCIO', legacyNames: ['CASA DAS ERVAS', 'PÁTIO DA COMUNIDADE'], description: 'Convivência, ervas e estudos.', channels: [
-        { name: 'conversas', type: 'text', topic: 'Conversa livre da comunidade.' },
-        { name: 'laboratório', type: 'text', topic: 'Ingredientes, receitas e experimentos.', legacyNames: ['laboratório-de-ervas'] },
+        { name: 'conversas', type: 'text', topic: 'Conversa livre da comunidade.', starter: 'conversas' },
+        { name: 'laboratório', type: 'text', topic: 'Ingredientes, receitas e experimentos.', starter: 'laboratorio', legacyNames: ['laboratório-de-ervas'] },
         { name: 'biblioteca', type: 'text', readOnly: true, topic: 'Arquivo de descobertas e casos encerrados.', starter: 'case-library', legacyNames: ['biblioteca-de-casos'] },
         { name: 'sala-de-estudos', type: 'voice', topic: 'Estudos e conversas tranquilas.' },
-        { name: 'artes-e-momentos', type: 'text', topic: 'Artes, imagens e momentos divertidos.', legacyNames: ['memes-e-artes'] },
+        { name: 'artes-e-momentos', type: 'text', topic: 'Artes, imagens e momentos divertidos.', starter: 'artes', legacyNames: ['memes-e-artes'] },
         { name: 'salão-principal', type: 'voice', topic: 'Convivência do Palácio.' }
       ] },
       { name: '╭・AVENTURAS', legacyNames: ['INVESTIGAÇÕES', 'RPG · REGISTROS DO PALÁCIO'], description: 'Casos, registros e aventuras.', channels: [
         { name: 'painel-do-rpg', type: 'text', readOnly: true, topic: 'Painel interativo dos Registros do Palácio.', starter: 'rpg-panel' },
-        { name: 'casos', type: 'text', topic: 'Casos e mistérios em andamento.', legacyNames: ['casos-abertos', 'casos-do-palácio'] },
+        { name: 'casos', type: 'text', topic: 'Casos e mistérios em andamento.', starter: 'casos', legacyNames: ['casos-abertos', 'casos-do-palácio'] },
         { name: 'relatórios', type: 'text', readOnly: true, topic: 'Casos encerrados e revisados.', starter: 'case-reports', legacyNames: ['relatórios-de-caso'] },
         { name: 'sala-de-consulta', type: 'voice', topic: 'Reuniões de investigação.' },
         { name: 'taverna', type: 'voice', topic: 'Conversa durante as aventuras.' }
@@ -35,7 +35,7 @@ const blueprints = {
         { name: 'central-de-atendimento', type: 'text', readOnly: true, topic: 'Abra um atendimento pelo painel.', starter: 'tickets', legacyNames: ['central-de-ajuda'] }
       ] },
       { name: '╭・EQUIPE', legacyNames: ['ÁREA RESTRITA'], description: 'Registros internos da equipe.', staffOnly: true, channels: [
-        { name: 'registros-da-equipe', type: 'text', topic: 'Logs e decisões internas.' },
+        { name: 'registros-da-equipe', type: 'text', topic: 'Logs e decisões internas.', starter: 'equipe' },
         { name: 'sala-da-equipe', type: 'voice', topic: 'Reuniões privadas.' }
       ] }
     ]
