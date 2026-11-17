@@ -1,6 +1,7 @@
 import { ChannelType, PermissionsBitField } from 'discord.js';
 import { buildPlan, getBlueprint } from '../core/blueprints.js';
 import { permissionBits } from '../core/safety.js';
+import { starterEmbed } from '../core/starter-messages.js';
 
 export function previewTemplate(templateId) { const blueprint = getBlueprint(templateId); return { blueprint, plan: buildPlan(blueprint) }; }
 
@@ -31,8 +32,8 @@ export async function applyTemplate(guild, templateId, logger) {
   const roleMap = new Map();
   for (const role of plan.roles) {
     let current = guild.roles.cache.find((item) => item.name === role.name);
-    if (!current) current = await guild.roles.create({ name: role.name, color: role.color, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: criar cargo do template ${templateId}` });
-    else if (current.editable) await current.edit({ color: role.color, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: configurar cargo do template ${templateId}` });
+    if (!current) current = await guild.roles.create({ name: role.name, color: role.color, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: criar cargo do template ${templateId}` });
+    else if (current.editable) await current.edit({ color: role.color, hoist: role.hoist ?? false, permissions: new PermissionsBitField(permissionBits(role.permissions)), reason: `Maomao: configurar cargo do template ${templateId}` });
     roleMap.set(role.name, current);
   }
   await setRoleOrder(guild, plan.roles, roleMap, logger);
@@ -41,10 +42,19 @@ export async function applyTemplate(guild, templateId, logger) {
     if (!parent) parent = await guild.channels.create({ name: category.name, type: ChannelType.GuildCategory, reason: `Maomao: criar categoria do template ${templateId}` });
     for (const channel of category.channels) {
       const type = channel.type === 'voice' ? ChannelType.GuildVoice : ChannelType.GuildText;
-      if (!guild.channels.cache.find((item) => item.parentId === parent.id && item.name === channel.name)) await guild.channels.create({ name: channel.name, type, parent: parent.id, reason: `Maomao: criar canal do template ${templateId}` });
+      let target = guild.channels.cache.find((item) => item.parentId === parent.id && item.name === channel.name);
+      if (!target) target = await guild.channels.create({ name: channel.name, type, parent: parent.id, ...(type === ChannelType.GuildText && channel.topic ? { topic: channel.topic } : {}), reason: `Maomao: criar canal do template ${templateId}` });
+      else if (target.isTextBased() && channel.topic && target.editable) await target.setTopic(channel.topic, 'Maomao: configurar descrição do canal oficial');
+      if (target.isTextBased() && channel.starter && target.sendable) await seedChannel(target, channel.starter, guild.client.user?.id);
     }
     await configurePermissions(guild, parent, category, blueprint, roleMap);
   }
   logger.info({ guildId: guild.id, templateId, roles: plan.roles.length, channels: plan.channels.length }, 'Template aplicado com permissões');
   return { blueprint, plan, applied: true };
+}
+
+async function seedChannel(channel, starter, botId) {
+  const recent = await channel.messages.fetch({ limit: 30 }).catch(() => null);
+  if (recent?.some((message) => message.author.id === botId && message.embeds.some((embed) => embed.footer?.text?.includes('Palácio das Ervas')))) return;
+  const visual = starterEmbed(starter); await channel.send({ embeds: [visual.embed], files: visual.files });
 }

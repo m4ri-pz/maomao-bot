@@ -51,7 +51,9 @@ Antes de aplicar, Maomao mostra uma prévia. Depois da confirmação, ela config
 - canais de texto e voz;
 - regras, boas-vindas e anúncios em modo leitura.
 
-O modo oficial **não apaga canais ou cargos existentes**. Ele cria o que estiver faltando e configura os itens pertencentes à base oficial. Depois disso, o administrador pode personalizar o servidor sem trocar a identidade estrutural do bot.
+O modo oficial **não apaga canais ou cargos existentes**. Ele cria o que estiver faltando, ajusta os itens pertencentes à base oficial, adiciona descrições aos canais e publica mensagens iniciais idempotentes em áreas importantes. Se for executado novamente, a Maomao verifica os marcadores existentes em vez de duplicar a apresentação.
+
+A base agora possui sete áreas: Portão do Palácio, Casa das Ervas, Investigações, Pátio da Comunidade, RPG · Registros do Palácio, Atendimento e Área Restrita. A área de RPG já nasce com painel, casos, eventos e taverna; a equipe recebe uma área privada para registros e coordenação.
 
 ### O que foi removido
 
@@ -64,7 +66,7 @@ O projeto não aceita mais templates externos ou templates arbitrários criados 
 | `/template-oficial` | Visualiza e aplica o template-base Maomao. |
 | `/configuracao` | Abre o painel geral do servidor. |
 | `/painel-tickets` | Publica a central de atendimento. |
-| `/rpg` | Abre o painel social de RPG. |
+| `/rpg` | Abre o dashboard interativo de RPG. |
 | `/painel-admin` | Acessa ferramentas administrativas seguras. |
 | `/status` | Verifica o estado do bot. |
 
@@ -207,7 +209,7 @@ services + store
 
 Isso permite ampliar cargos, canais, permissões e automações sem transformar um único arquivo em um painel impossível de manter. Cada domínio pode ganhar novas telas, confirmações e testes sem reescrever o bot inteiro.
 
-O RPG já possui uma camada própria em `src/modules/rpg/`, com domínio de personagem, armazenamento, motor de regras e espaços preparados para casos, locais, eventos e alquimia. A próxima evolução pode substituir as regras atuais sem contaminar os painéis administrativos.
+O RPG já possui uma camada própria em `src/modules/rpg/`, com domínio de personagem, armazenamento, motor de regras, locais, casos, receitas e telas interativas. O `/rpg` abre um dashboard com botões para explorar, consultar casos, abrir o laboratório de alquimia, ver inventário, consultar a ficha e descansar. Menus de seleção exibem locais, casos e receitas sem transformar o RPG em uma sequência de comandos de texto.
 
 ## Assets e imagens
 
