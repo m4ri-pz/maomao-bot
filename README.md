@@ -164,13 +164,34 @@ Depois, abra um Pull Request no GitHub. Nunca faça commit do `.env`, tokens, se
 
 ```text
 src/
-├── commands/       comandos Slash e painéis iniciais
-├── core/           templates oficiais, segurança e planos
-├── interactions/   roteamento de botões, menus e modais
+├── commands/       comandos Slash e registro único
+├── core/           template oficial, segurança e planos
+├── interactions/   UI, roteador e handlers por domínio
+├── panels/         visões reutilizáveis dos painéis
 ├── personality/    identidade e mensagens da Maomao
-├── services/       arquitetura, tickets e RPG
+├── services/       estrutura, Tickets e RPG
 └── store/          configurações persistentes por servidor
 ```
+
+### Como a nova estrutura funciona
+
+Os comandos Slash ficam registrados uma única vez em `src/commands/index.js`. O `index.js` apenas inicializa o cliente e encaminha a interação. O roteador não contém mais a lógica de todas as funções: ele identifica o domínio e delega para um handler específico.
+
+```text
+comando Slash
+    ↓
+commands/index.js
+    ↓
+interactions/router.js
+    ├── handlers/template.js
+    ├── handlers/tickets.js
+    ├── handlers/settings.js
+    └── handlers/rpg.js
+    ↓
+services + store
+```
+
+Isso permite ampliar cargos, canais, permissões e automações sem transformar um único arquivo em um painel impossível de manter. Cada domínio pode ganhar novas telas, confirmações e testes sem reescrever o bot inteiro.
 
 ## Princípios da Maomao
 
