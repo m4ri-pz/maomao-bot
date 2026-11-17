@@ -1,17 +1,18 @@
 import { closeTicket } from '../services/tickets.js';
 import { canManageServer } from '../core/safety.js';
-import { characterProfile } from '../personality/character-profile.js';
 import { homeView } from '../panels/home.js';
 import { open as openTicket, handles as handlesTickets, handle as handleTickets } from './handlers/tickets.js';
 import { handles as handlesTemplate, handle as handleTemplate } from './handlers/template.js';
 import { handles as handlesSettings, handle as handleSettings } from './handlers/settings.js';
 import { handles as handlesRpg, handle as handleRpg } from './handlers/rpg.js';
+import { handles as handlesAdmin, handle as handleAdmin } from './handlers/admin.js';
 
 const domains = [
   { handles: handlesTemplate, handle: handleTemplate },
   { handles: handlesTickets, handle: handleTickets },
   { handles: handlesSettings, handle: handleSettings },
-  { handles: handlesRpg, handle: handleRpg }
+  { handles: handlesRpg, handle: handleRpg },
+  { handles: handlesAdmin, handle: handleAdmin }
 ];
 
 export async function handleInteraction(interaction, logger) {
@@ -23,6 +24,5 @@ export async function handleInteraction(interaction, logger) {
   if (!interaction.guild || !canManageServer(interaction.member)) return interaction.reply({ content: 'Você não tem permissão para usar este painel.', ephemeral: true });
   const domain = domains.find((candidate) => candidate.handles(interaction.customId));
   if (domain) return domain.handle(interaction, logger);
-  if (interaction.customId === 'panel:admin') { const view = await homeView(interaction.guildId); return interaction.update({ content: `${characterProfile.name} abriu o centro administrativo.`, embeds: [view.embed], files: view.files, components: view.components }); }
   return false;
 }
