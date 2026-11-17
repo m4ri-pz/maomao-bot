@@ -75,7 +75,7 @@ ATENDIMENTO
 ÁREA RESTRITA
 ```
 
-A aplicação oficial prepara descrições de canais e publica mensagens curtas em boas-vindas, regras, anúncios, biblioteca, relatórios, painel do RPG e atendimento.
+A aplicação oficial prepara descrições de canais e publica mensagens curtas em boas-vindas, regras, anúncios, biblioteca, relatórios, painel do RPG e atendimento. A Câmara de Atendimento já nasce com um menu funcional para abrir Orientação geral, Relato reservado, Sugestão ou Proposta de parceria.
 
 ### Limpar uma base antiga
 
@@ -124,7 +124,7 @@ O RPG foi planejado para funcionar por interação, não como uma lista de coman
 
 ### Conteúdo atual
 
-- Cartógrafo, Guardião e Cronista;
+- Cartógrafo, Guardião, Cronista e Boticária;
 - Pavilhão das Ervas;
 - Jardim Imperial;
 - Biblioteca dos Casos;
@@ -135,6 +135,9 @@ O RPG foi planejado para funcionar por interação, não como uma lista de coman
 - pistas individuais por investigação;
 - recompensas e casos concluídos;
 - receitas com ingredientes e custo;
+- sala de exames para observação, farmacologia e dedução;
+- amostras fictícias com resultados narrativos seguros;
+- talentos que evoluem conforme o jogador explora, investiga, prepara e examina;
 - XP, níveis, HP, ouro e reputação;
 - estatísticas de exploração, investigação e preparo.
 
