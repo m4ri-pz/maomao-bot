@@ -15,7 +15,7 @@ O Architect poderá:
 - executar automações com permissões mínimas e logs;
 - evoluir para plugins de tickets, onboarding, formulários e backups de configuração.
 
-A primeira identidade padrão é **A.U.R.A., a Arquiteta do Servidor**: clara, prestativa e técnica, sem fingir que uma ação foi aplicada quando ainda está apenas planejada.
+A identidade padrão é **Maomao**: curiosa, direta e analítica, com estética de ervas, investigação e organização do palácio. Os textos do projeto são autorais; não incluímos falas ou artes copiadas da obra.
 
 ## Desenvolvimento no Android com Termux
 
@@ -119,45 +119,33 @@ Nunca faça commit do `.env` e nunca cole o token do Discord em mensagens, issue
 3. Convide-o com os escopos `bot` e `applications.commands`.
 4. Durante o desenvolvimento, use `DISCORD_GUILD_ID` para registrar comandos rapidamente.
 5. Dê ao bot somente as permissões necessárias. O cargo do bot precisa ficar acima dos cargos que ele deverá gerenciar.
+6. No Developer Portal, defina o nome exibido da aplicação como **Maomao** e escolha um avatar que você tenha permissão para usar. O código fornece a estética e os textos; nome e avatar da conta do Discord são configurados no próprio portal.
 
-## Importar templates do Xenon
+## Template oficial do servidor
 
-O projeto suporta a análise de templates públicos da galeria [xenon.bot/templates](https://xenon.bot/templates). As pessoas podem procurar por tema, idioma ou popularidade, abrir um template e copiar o **código do template** ou o link da página. Exemplos de códigos aparecem nas páginas individuais, como `HnqY8F9hDxgC`.
+O bot trabalha com um único template-base: **Palácio das Ervas**, uma estrutura oficial com estética de investigação, botânica, laboratório, mistérios e organização do palácio. Isso mantém os cargos, permissões e configurações essenciais consistentes em todos os servidores.
 
-### Como usar
-
-1. Abra a [galeria de templates do Xenon](https://xenon.bot/templates).
-2. Escolha um template e confira a descrição antes de usá-lo.
-3. Copie o código exibido na página ou copie o link `https://xenon.bot/templates/<código>`.
-4. No servidor em que o Architect está instalado, use:
+Para usar a configuração pronta:
 
 ```text
-/importar-template template:HnqY8F9hDxgC
+/template-oficial
 ```
 
-Também é possível informar o link completo:
+O comando mostra uma prévia e, após a confirmação, configura:
 
-```text
-/importar-template template:https://xenon.bot/templates/HnqY8F9hDxgC
-```
+- cargos-base e suas permissões;
+- hierarquia planejada dos cargos;
+- categorias do palácio;
+- canais de texto e voz;
+- canais de regras, boas-vindas e anúncios em modo leitura;
+- área restrita para a equipe;
+- permissões de visualização, envio, histórico, conexão e fala;
+- estrutura de investigação, ervas, comunidade e atendimento.
 
-O Architect acessa apenas a página pública, extrai a estrutura visível e mostra uma prévia com cargos, categorias, canais de texto e canais de voz. Depois, o administrador pode clicar em **Aplicar modo seguro**.
+O modo oficial não apaga canais ou cargos existentes. Ele cria o que estiver faltando e atualiza os itens que pertencem ao template-base. Depois da aplicação, cada administrador pode personalizar nomes, cores, canais e módulos pelo painel `/configuracao`, preservando a identidade estrutural do bot.
 
-### O que é importado
-
-- nome e código do template;
-- categorias visíveis;
-- canais de texto;
-- canais de voz;
-- nomes dos cargos;
-- cores exibidas para os cargos, quando disponíveis.
-
-### Como o modo seguro funciona
-
-O importador cria apenas itens ausentes e preserva canais e cargos que já existem. Ele não apaga a estrutura atual. As permissões detalhadas de cada canal não são tratadas como importadas automaticamente, porque a página pública do Xenon não expõe de forma confiável todas as sobrescritas de permissão. Em vez de inventar permissões, o Architect aplica uma política conservadora e informa essa limitação antes da aplicação.
-
-Para uma aplicação destrutiva ou uma cópia exata de permissões, use primeiro o backup do Xenon e revise a operação no próprio Xenon. Consulte a [documentação oficial de templates](https://xenon.bot/docs/templates), especialmente as opções de canais, cargos, configurações e exclusão. O Architect deliberadamente começa pelo modo não destrutivo.
+Para manter a experiência coerente, o projeto não oferece importação de templates externos nem criação de templates arbitrários pelo usuário. A personalização acontece sobre a base oficial.
 
 ## Estado atual
 
-A base inclui `/configuracao`, templates internos com simulação, importador público Xenon, aplicação segura de arquitetura, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade A.U.R.A. é original e pode ser personalizada por servidor. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados, moderação visual e importação detalhada de permissões por exportação estruturada.
+A base inclui `/configuracao`, o `/template-oficial` do Palácio das Ervas, aplicação segura de arquitetura com permissões, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade Maomao pode ser personalizada por servidor sem trocar a base estrutural. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados e moderação visual.

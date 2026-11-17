@@ -13,7 +13,7 @@ export async function createTicket(interaction) {
     { id: interaction.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] },
     { id: interaction.client.user.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ManageChannels] }
   ], reason: 'Discord Architect: abrir ticket' });
-  await channel.send({ content: `Olá, <@${interaction.user.id}>. A.U.R.A. abriu este atendimento. Explique o que você precisa e use o botão abaixo para fechar.`, components: [closeRow()] });
+  await channel.send({ content: `Olá, <@${interaction.user.id}>. Maomao abriu este atendimento. Explique o que você precisa; quanto mais detalhes, menos tempo perdemos procurando a causa.`, components: [closeRow()] });
   await updateGuildConfig(interaction.guildId, { tickets: { ...(config.tickets || {}), categoryName: category, panelTitle: config.tickets?.panelTitle || 'Central de atendimento' } });
   return { channel, created: true };
 }
