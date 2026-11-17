@@ -59,30 +59,54 @@ npm start
 
 Se tudo estiver correto, o bot ficará conectado enquanto o processo estiver ativo. Para interromper, use `Ctrl+C`.
 
-### 5. Editar e sincronizar
+### 5. Fluxo Git completo
 
-Os principais arquivos ficam em `src/`. Para editar rapidamente:
+O repositório oficial é `https://github.com/m4ri-pz/discord-architect`. Depois do clone, confirme o endereço remoto:
 
 ```bash
-nano src/commands/configuration.js
-nano src/interactions/router.js
+git remote -v
+git branch --show-current
 ```
 
-Depois de testar suas alterações:
+Para editar diretamente a branch principal:
 
 ```bash
-git status
+git pull --rebase origin main
+nano src/commands/configuration.js
+npm run check
 git add .
 git commit -m "feat: descreva sua mudança"
-git push
+git push origin main
 ```
 
-Para trazer mudanças feitas no GitHub:
+Para trabalhar de forma mais organizada, crie uma branch para cada recurso:
 
 ```bash
-git pull --rebase
+git pull --rebase origin main
+git switch -c feat/painel-tickets
+# edite, teste e revise os arquivos
+npm run check
+git add .
+git commit -m "feat: melhorar painel de tickets"
+git push -u origin feat/painel-tickets
+```
+
+Depois, abra um **Pull Request** no GitHub. Quando a alteração estiver aprovada e incorporada à `main`, volte ao ambiente local:
+
+```bash
+git switch main
+git pull --rebase origin main
 npm install
 ```
+
+Se o Git pedir sua identidade pela primeira vez, configure apenas seu nome e e-mail público do GitHub:
+
+```bash
+git config --global user.name "m4ri-pz"
+git config --global user.email "SEU_EMAIL_DO_GITHUB"
+```
+
+Não coloque tokens em commits. Para desfazer uma mudança ainda não enviada, use `git restore caminho/do/arquivo`; para consultar o histórico, use `git log --oneline --decorate -10`.
 
 Se preferir um editor visual, abra a pasta clonada em um editor de código compatível com o armazenamento do Termux. O fluxo continua sendo o mesmo: editar, testar, fazer commit e enviar.
 
@@ -98,4 +122,4 @@ Nunca faça commit do `.env` e nunca cole o token do Discord em mensagens, issue
 
 ## Estado atual
 
-A base já inclui `/configuracao`, painel de botões, templates, simulação, aplicação de arquitetura, armazenamento local por servidor e registro de comandos. A próxima etapa pode adicionar banco SQLite, painel web e integração opcional com IA.
+A base inclui `/configuracao`, templates com simulação, aplicação de arquitetura, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade A.U.R.A. é original e pode ser personalizada por servidor. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados, moderação visual e integração opcional com IA.
