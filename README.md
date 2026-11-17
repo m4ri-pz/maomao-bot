@@ -120,6 +120,44 @@ Nunca faça commit do `.env` e nunca cole o token do Discord em mensagens, issue
 4. Durante o desenvolvimento, use `DISCORD_GUILD_ID` para registrar comandos rapidamente.
 5. Dê ao bot somente as permissões necessárias. O cargo do bot precisa ficar acima dos cargos que ele deverá gerenciar.
 
+## Importar templates do Xenon
+
+O projeto suporta a análise de templates públicos da galeria [xenon.bot/templates](https://xenon.bot/templates). As pessoas podem procurar por tema, idioma ou popularidade, abrir um template e copiar o **código do template** ou o link da página. Exemplos de códigos aparecem nas páginas individuais, como `HnqY8F9hDxgC`.
+
+### Como usar
+
+1. Abra a [galeria de templates do Xenon](https://xenon.bot/templates).
+2. Escolha um template e confira a descrição antes de usá-lo.
+3. Copie o código exibido na página ou copie o link `https://xenon.bot/templates/<código>`.
+4. No servidor em que o Architect está instalado, use:
+
+```text
+/importar-template template:HnqY8F9hDxgC
+```
+
+Também é possível informar o link completo:
+
+```text
+/importar-template template:https://xenon.bot/templates/HnqY8F9hDxgC
+```
+
+O Architect acessa apenas a página pública, extrai a estrutura visível e mostra uma prévia com cargos, categorias, canais de texto e canais de voz. Depois, o administrador pode clicar em **Aplicar modo seguro**.
+
+### O que é importado
+
+- nome e código do template;
+- categorias visíveis;
+- canais de texto;
+- canais de voz;
+- nomes dos cargos;
+- cores exibidas para os cargos, quando disponíveis.
+
+### Como o modo seguro funciona
+
+O importador cria apenas itens ausentes e preserva canais e cargos que já existem. Ele não apaga a estrutura atual. As permissões detalhadas de cada canal não são tratadas como importadas automaticamente, porque a página pública do Xenon não expõe de forma confiável todas as sobrescritas de permissão. Em vez de inventar permissões, o Architect aplica uma política conservadora e informa essa limitação antes da aplicação.
+
+Para uma aplicação destrutiva ou uma cópia exata de permissões, use primeiro o backup do Xenon e revise a operação no próprio Xenon. Consulte a [documentação oficial de templates](https://xenon.bot/docs/templates), especialmente as opções de canais, cargos, configurações e exclusão. O Architect deliberadamente começa pelo modo não destrutivo.
+
 ## Estado atual
 
-A base inclui `/configuracao`, templates com simulação, aplicação de arquitetura, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade A.U.R.A. é original e pode ser personalizada por servidor. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados, moderação visual e integração opcional com IA.
+A base inclui `/configuracao`, templates internos com simulação, importador público Xenon, aplicação segura de arquitetura, painel configurável de Tickets, abertura e fechamento de canais privados, automações com ativação por painel e RPG interativo com classes, exploração, missões, inventário e progressão. A identidade A.U.R.A. é original e pode ser personalizada por servidor. As próximas etapas podem adicionar banco SQLite, painel web, logs avançados, moderação visual e importação detalhada de permissões por exportação estruturada.

@@ -8,6 +8,7 @@ import { act } from '../services/rpg.js';
 import { buttons as rpgButtons, card as rpgCard } from '../commands/rpg.js';
 import { characterProfile } from '../personality/character-profile.js';
 import { personality } from '../personality/messages.js';
+import { fetchXenonTemplate, applyXenonTemplate, xenonPreview } from '../services/xenon.js';
 
 function button(id, label, style = ButtonStyle.Secondary) { return new ButtonBuilder().setCustomId(id).setLabel(label).setStyle(style); }
 function templateMenu() { return new ActionRowBuilder().addComponents(new StringSelectMenuBuilder().setCustomId('template:select').setPlaceholder('Escolha um template').addOptions(listBlueprints().map((id) => { const b = getBlueprint(id); return { label: b.name, description: b.description.slice(0, 100), value: id }; }))); }
@@ -32,6 +33,13 @@ export async function handleInteraction(interaction, logger) {
   }
   if (interaction.customId.startsWith('template:save:')) { const id = interaction.customId.split(':')[2]; await updateGuildConfig(interaction.guildId, { template: id }); return interaction.update({ content: `Template **${id}** salvo. A aplicação continua separada e exige outro clique.`, embeds: [], components: [backButton()] }); }
   if (interaction.customId.startsWith('template:apply:')) { await interaction.deferUpdate(); const id = interaction.customId.split(':')[2]; await updateGuildConfig(interaction.guildId, { template: id }); const result = await applyTemplate(interaction.guild, id, logger); return interaction.editReply({ content: `Arquitetura aplicada com segurança: ${summarizePlan(result.plan)}. Itens existentes foram preservados.`, embeds: [], components: [backButton()] }); }
+  if (interaction.customId.startsWith('xenon:apply:')) {
+    await interaction.deferUpdate();
+    const code = interaction.customId.split(':')[2];
+    const template = await fetchXenonTemplate(code);
+    const count = await applyXenonTemplate(interaction.guild, template, logger);
+    return interaction.editReply({ content: `Template Xenon aplicado em modo seguro: ${count.roles} cargos, ${count.categories} categorias, ${count.textChannels} canais de texto e ${count.voiceChannels} canais de voz. Nada existente foi apagado.`, embeds: [], components: [backButton()] });
+  }
 
   if (interaction.customId === 'panel:roles') return interaction.update({ content: 'Painel de cargos: os templates já criam cargos com permissões explícitas. A próxima camada permitirá editar nome, cor, posição e permissões individualmente, sempre com prévia.', embeds: [], components: [backButton()] });
   if (interaction.customId === 'panel:channels') return interaction.update({ content: 'Painel de canais: a arquitetura cria categorias e canais ausentes sem apagar sua estrutura. A próxima camada permitirá editar visibilidade, limites e permissões por cargo.', embeds: [], components: [backButton()] });
